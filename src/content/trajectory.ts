@@ -6,6 +6,7 @@ export type TrajectoryRole = {
 
 export type TrajectoryEntry = {
   company: string;
+  kind: "work" | "education";
   meta: { es: string; en: string };
   location: { es: string; en: string };
   roles: TrajectoryRole[];
@@ -14,6 +15,7 @@ export type TrajectoryEntry = {
 export const trajectory: TrajectoryEntry[] = [
   {
     company: "HomeTeam Network",
+    kind: "work",
     meta: { es: "Jornada completa · dic. 2025 - actualidad", en: "Full-time · Dec 2025 - present" },
     location: { es: "Ecuador · En remoto", en: "Ecuador · Remote" },
     roles: [
@@ -29,6 +31,7 @@ export const trajectory: TrajectoryEntry[] = [
   },
   {
     company: "Instituto Tecnológico Superior Ibarra",
+    kind: "education",
     meta: { es: "Contrato temporal · may. 2025 - dic. 2025 · 8 meses", en: "Temporary contract · May 2025 - Dec 2025 · 8 months" },
     location: { es: "Ibarra, Imbabura, Ecuador · Presencial", en: "Ibarra, Imbabura, Ecuador · On-site" },
     roles: [
@@ -55,6 +58,7 @@ export const trajectory: TrajectoryEntry[] = [
   },
   {
     company: "NeaterNotes",
+    kind: "work",
     meta: { es: "Jornada completa · sept. 2024 - sept. 2025 · 1 año 1 mes", en: "Full-time · Sep 2024 - Sep 2025 · 1 yr 1 mo" },
     location: { es: "En remoto", en: "Remote" },
     roles: [
@@ -86,6 +90,7 @@ export const trajectory: TrajectoryEntry[] = [
   },
   {
     company: "Cry.code · Profesional independiente",
+    kind: "work",
     meta: { es: "may. 2022 - actualidad", en: "May 2022 - present" },
     location: { es: "Ecuador", en: "Ecuador" },
     roles: [

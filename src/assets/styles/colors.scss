@@ -20,6 +20,15 @@
 
   --color-orange-400: #ff8400;
 
+  --color-brand-500: #2563eb;
+  --color-brand-400: #3b82f6;
+  --color-brand-300: #60a5fa;
+
+  --color-accent-400: var(--color-brand-400);
+  --color-accent-text-400: var(--color-white-400);
+  --color-hover: var(--color-brand-500);
+  --color-hover-text: var(--color-white-400);
+
   --color-white-400: #ffffff;
 
   --color-cyan-500: #0086bb;

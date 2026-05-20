@@ -170,7 +170,7 @@ onUnmounted(() => {
     transition:
       background-color 0.1s ease-in-out,
       opacity 0.1s ease-in-out;
-    background-color: var(--color-accent-400, var(--color-orange-400));
+    background-color: var(--color-accent-400, var(--color-brand-400));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -190,7 +190,7 @@ onUnmounted(() => {
     transition:
       background-color 0.1s ease-in-out,
       opacity 0.1s ease-in-out;
-    background-color: var(--color-accent-400, var(--color-orange-400));
+    background-color: var(--color-accent-400, var(--color-brand-400));
     border-radius: 50%;
     display: flex;
     align-items: center;

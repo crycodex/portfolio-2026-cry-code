@@ -170,14 +170,14 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
     gap: var(--space-sm);
     margin-top: var(--space-sm);
     padding: var(--space-xs) var(--space-sm);
-    border: var(--stroke-sm) solid var(--color-orange-400);
+    border: var(--stroke-sm) solid var(--color-brand-400);
     border-radius: var(--radius-md);
     width: fit-content;
 
     &-badge {
       font-family: "ProFontWindows", sans-serif;
       font-weight: 700;
-      color: var(--color-orange-400);
+      color: var(--color-brand-400);
     }
 
     &-copy {
