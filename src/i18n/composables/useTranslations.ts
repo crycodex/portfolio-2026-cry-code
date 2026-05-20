@@ -2,7 +2,7 @@ import { watch } from "vue";
 import { loadTranslations } from "../utils/load";
 import { locale, translations } from "../store";
 import { onMounted } from "vue";
-import { LOCALES } from "../constants";
+import { LOCALES, LOCALE_DEFAULT } from "../constants";
 
 import type { Locale } from "../types";
 
@@ -15,7 +15,7 @@ export const useTranslations = () => {
       if (preferredLocale in LOCALES) {
         locale.value = preferredLocale;
       } else {
-        locale.value = "en";
+        locale.value = LOCALE_DEFAULT;
       }
     }
   });

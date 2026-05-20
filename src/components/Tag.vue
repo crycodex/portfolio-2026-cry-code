@@ -37,29 +37,29 @@ const classes = computed(() => ["tag", `tag-variant-${props.variant}`]);
       color: #0f2e36;
     }
 
-    &-websockets {
-      background-color: #2674a4;
+    &-typescript {
+      background-color: #3178c6;
       color: white;
     }
 
-    &-redis {
-      background-color: #ce4036;
+    &-vercel {
+      background-color: #111;
       color: white;
     }
 
-    &-html {
-      color: var(--color-text-400);
-      border-color: var(--color-grayscale-400);
+    &-flutter {
+      background-color: #54c5f8;
+      color: #0a2a3a;
     }
 
-    &-css {
-      color: var(--color-text-400);
-      border-color: var(--color-grayscale-400);
+    &-dart {
+      background-color: #0175c2;
+      color: white;
     }
 
-    &-javascript {
-      background-color: #ffdf4f;
-      color: #362d03;
+    &-firebase {
+      background-color: #ffca28;
+      color: #3a2f00;
     }
 
     &-node {
@@ -67,29 +67,14 @@ const classes = computed(() => ["tag", `tag-variant-${props.variant}`]);
       color: white;
     }
 
-    &-next {
-      background-color: white;
-      color: black;
-    }
-
-    &-kubernetes {
-      background-color: #326ce5;
+    &-api {
+      background-color: #5c6bc0;
       color: white;
     }
 
-    &-postgresql {
-      background-color: #2f6c92;
-      color: white;
-    }
-
-    &-ogl {
-      background-color: #0e5495;
-      color: white;
-    }
-
-    &-glsl {
-      background-color: #95630e;
-      color: white;
+    &-gray {
+      color: var(--color-text-400);
+      border-color: var(--color-grayscale-400);
     }
   }
 }

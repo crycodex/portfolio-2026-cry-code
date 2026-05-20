@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect, onBeforeUnmount } from "vue";
+import { ref, watchEffect, onBeforeUnmount } from "vue";
 import gsap from "gsap";
-import { locale } from "../../../i18n/store";
 import { t } from "../../../i18n/utils/translate";
 import AppearingText from "../../../components/AppearingText.vue";
 import { BREAKPOINTS } from "../../../utils/sizes";
 import { Vector3 } from "three";
 import ProjectedElement from "../../../components/ProjectedElement.vue";
+import { skills } from "../../../content/skills";
 
 const point = new Vector3(0.75, 2.75, 6.75);
 
@@ -43,7 +43,6 @@ watchEffect((onInvalidate) => {
         paused: true,
       });
 
-      // Only animate clipPath on desktop
       if (!isMobile) {
         tl.fromTo(
           wrapperEl,
@@ -52,7 +51,6 @@ watchEffect((onInvalidate) => {
           0,
         );
       } else {
-        // On mobile, ensure clipPath is set to visible immediately
         gsap.set(wrapperEl, { clipPath: "inset(0% 0% 0% 0%)" });
       }
 
@@ -64,14 +62,12 @@ watchEffect((onInvalidate) => {
         }, item.delay + 0.25);
       }
 
-      // Only fade in on desktop
       if (!isMobile && subRefs.value.length > 0) {
         const subItems = subRefs.value.filter((ref) => ref !== null && ref !== undefined);
         if (subItems.length > 0) {
           tl.fromTo(subItems, { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.1 }, 0.3);
         }
       } else if (isMobile && subRefs.value.length > 0) {
-        // On mobile, ensure opacity is 1 immediately
         const subItems = subRefs.value.filter((ref) => ref !== null && ref !== undefined);
         if (subItems.length > 0) {
           gsap.set(subItems, { opacity: 1 });
@@ -80,7 +76,6 @@ watchEffect((onInvalidate) => {
 
       emit("timeline:created", tl);
 
-      // Return cleanup function
       return () => {
         tl.kill();
       };
@@ -105,26 +100,6 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
   const updatedTimelines = [...timelines.value, { timeline, delay }];
   timelines.value = updatedTimelines;
 };
-
-const SERVICES_EN = [
-  { name: "Three.js & WebGL" },
-  { name: "Node.js & WebSockets" },
-  { name: "React & Vue" },
-  { name: "Kubernetes & Redis" },
-  { name: "Real-time Multiplayer" },
-] as const satisfies { name: string }[];
-
-const SERVICES_DE = [
-  { name: "Three.js & WebGL" },
-  { name: "Node.js & WebSockets" },
-  { name: "React & Vue" },
-  { name: "Kubernetes & Redis" },
-  { name: "Echtzeit-Mehrspieler" },
-] as const satisfies { name: string }[];
-
-const services = computed(() => {
-  return locale.value === "en" ? SERVICES_EN : SERVICES_DE;
-});
 </script>
 
 <template>
@@ -140,10 +115,10 @@ const services = computed(() => {
           />
         </div>
         <div class="box-services-list">
-          <div class="box-services-list-item" v-for="(service, index) in services" :key="service.name">
+          <div class="box-services-list-item" v-for="(skill, index) in skills" :key="skill">
             <p class="box-services-list-item-name">
               <AppearingText
-                :text="service.name"
+                :text="skill"
                 :steps="1"
                 :duration="0.35"
                 @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0.15 + index * 0.1)"

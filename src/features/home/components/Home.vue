@@ -5,6 +5,10 @@ import About from "./About.vue";
 //import AboutSections from "../features/about/Sections.vue";
 import Projects from "./Projects.vue";
 import Contact from "./Contact.vue";
+import Trajectory from "./Trajectory.vue";
+import AboutMe from "./AboutMe.vue";
+import Certifications from "./Certifications.vue";
+import Talks from "./Talks.vue";
 import Footer from "../../../components/Footer.vue";
 import { ref, onMounted, onUnmounted, watchEffect, computed, watch } from "vue";
 import { three } from "../../../three";
@@ -157,7 +161,11 @@ watch(
         <div class="intro-wrapper-spacer"></div>
         <div class="about-spacer" ref="aboutSpacerRef" id="about"></div>
       </div>
+      <Trajectory v-if="projectsLoaded" />
       <Projects id="projects" @loaded="handleProjectsLoaded" />
+      <AboutMe v-if="projectsLoaded" />
+      <Certifications v-if="projectsLoaded" />
+      <Talks v-if="projectsLoaded" />
       <div ref="contactRef" class="home-contact">
         <Contact id="contact" v-if="projectsLoaded" />
       </div>

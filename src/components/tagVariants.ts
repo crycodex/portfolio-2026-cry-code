@@ -1,32 +1,22 @@
 export type TagVariant =
-  | "three"
-  | "websockets"
   | "react"
-  | "redis"
-  | "gray"
-  | "html"
-  | "css"
-  | "javascript"
+  | "typescript"
+  | "vercel"
+  | "flutter"
+  | "dart"
+  | "firebase"
   | "node"
-  | "next"
-  | "kubernetes"
-  | "postgresql"
-  | "ogl"
-  | "glsl";
+  | "api"
+  | "gray";
 
 export const tagLabels = {
-  three: "Three.js",
-  websockets: "WebSockets",
   react: "React",
-  redis: "Redis",
-  gray: "Gray",
-  html: "HTML",
-  css: "CSS",
-  javascript: "JavaScript",
+  typescript: "TypeScript",
+  vercel: "Vercel",
+  flutter: "Flutter",
+  dart: "Dart",
+  firebase: "Firebase",
   node: "Node.js",
-  next: "Next.js",
-  kubernetes: "Kubernetes",
-  postgresql: "PostgreSQL",
-  ogl: "OGL.js",
-  glsl: "GLSL",
+  api: "API",
+  gray: "Gray",
 } as const satisfies Record<TagVariant, string>;

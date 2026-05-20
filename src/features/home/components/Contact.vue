@@ -21,6 +21,10 @@ onUnmounted(() => {
   <div class="contact grid" ref="contactElement">
     <div class="contact-content">
       <h2 class="contact-title" v-html="t('lets-work-together')"></h2>
+      <p class="contact-subtitle">{{ t("contact-subtitle") }}</p>
+      <p class="contact-email">
+        <a href="mailto:cry.code@mail.com" data-cursor="circle-white">cry.code@mail.com</a>
+      </p>
       <Social variant="background" />
     </div>
   </div>
@@ -59,6 +63,17 @@ onUnmounted(() => {
 
     @include mixins.mq("lg") {
       grid-column: 2 / 6;
+    }
+  }
+
+  &-subtitle,
+  &-email {
+    font-size: var(--font-size-md);
+    line-height: 1.5;
+
+    a {
+      font-weight: 700;
+      text-decoration: underline;
     }
   }
 
