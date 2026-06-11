@@ -39,5 +39,7 @@
   "view-all-certifications": "View all certifications",
   "view-all-talks": "View all talks",
   "view-more": "view more",
-  "view-project": "View project"
+  "view-project": "View project",
+  "disable-dark-mode": "Disable dark mode",
+  "enable-dark-mode": "Enable dark mode"
 }

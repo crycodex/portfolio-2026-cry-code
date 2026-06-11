@@ -2,12 +2,11 @@ import { resources } from "../../../utils/resources";
 import { contact } from ".";
 import { getShadowMaterial } from "../../common/materials";
 import { colors } from "../../common/colors";
-import { Color } from "three";
 
 import type { Object3D } from "three";
 
-const backgroundColor = colors.beigeDark.clone().convertLinearToSRGB();
-const shadowColor = new Color("rgb(208, 185, 156)");
+const backgroundColor = colors.shadowContactBg;
+const shadowColor = colors.shadowContactColor;
 
 const init = () => {
   initObjects();

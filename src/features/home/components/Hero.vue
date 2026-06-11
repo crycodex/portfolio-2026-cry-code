@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import Banner from "../../../components/Banner.vue";
 import Button from "../../../components/Button.vue";
 import { preloaderVisible } from "../../../composables/usePreloader";
 import { t } from "../../../i18n/utils/translate";
 import { locale } from "../../../i18n/store";
-import { stats, award } from "../../../content/stats";
+import { award } from "../../../content/stats";
 import { social, socialLinks } from "../../../content/social";
 
 import type { Locale } from "../../../i18n/types";
@@ -20,7 +19,6 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
           <p class="hero-available" v-if="!preloaderVisible">{{ t("available") }}</p>
           <p class="hero-hello" v-if="!preloaderVisible">{{ t("hello") }}</p>
           <h1 class="hero-title" v-html="t('name-full')"></h1>
-          <Banner class="hero-banner" :copy="t('job-title')" v-if="!preloaderVisible" animated />
           <p class="hero-tagline" v-if="!preloaderVisible">{{ t("about-tagline") }}</p>
           <div class="hero-actions" v-if="!preloaderVisible">
             <Button renderAs="a" variant="accent" :href="socialLinks.cv" external>{{ "CV" }}</Button>
@@ -41,13 +39,6 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
               <span>{{ award.year }}</span>
             </div>
           </div>
-          <ul class="hero-stats" v-if="!preloaderVisible">
-            <li v-for="stat in stats" :key="stat.label.es" class="hero-stat">
-              <span class="hero-stat-label">{{ pick(stat.label) }}</span>
-              <span class="hero-stat-value">{{ stat.value }}</span>
-              <span class="hero-stat-meta">{{ pick(stat.meta) }}</span>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
@@ -188,52 +179,5 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
     }
   }
 
-  &-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    margin-top: var(--space-md);
-    list-style: none;
-  }
-
-  &-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 100px;
-
-    &-label {
-      font-size: var(--font-size-sm);
-      color: var(--color-text-400);
-    }
-
-    &-value {
-      font-size: var(--font-size-title-xs);
-      font-weight: 900;
-    }
-
-    &-meta {
-      font-size: var(--font-size-sm);
-      color: var(--color-cyan-500);
-    }
-  }
-
-  &-banner {
-    position: absolute;
-    bottom: 0;
-    right: -16px;
-    z-index: 10;
-    transform: rotate(-5deg) translate(0, 65%);
-
-    @include mixins.mq("sm") {
-      right: -24px;
-      transform: rotate(-5deg) translate(0, 70%);
-    }
-
-    @include mixins.mq("lg") {
-      right: -32px;
-      transform: rotate(-5deg) translate(0, 80%);
-    }
-  }
 }
 </style>

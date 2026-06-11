@@ -1,24 +1,31 @@
-:root {
-  //--color-text-400: #001341;
-  --color-text-400: #2d2a24;
-  --color-text-300: #5f5646;
+:root,
+html[data-theme="light"] {
+  /* Semantic tokens */
+  --color-background: #fafafa;
+  --color-surface: #f0f0f0;
+  --color-surface-2: #e4e4e4;
+  --color-surface-3: #d6d6d6;
+  --color-text: #18181b;
+  --color-text-muted: #52525b;
 
-  --color-grayscale-500: rgb(223, 210, 191);
-  --color-grayscale-400: rgb(233, 222, 208);
+  /* Legacy aliases */
+  --color-text-400: var(--color-text);
+  --color-text-300: var(--color-text-muted);
 
-  --color-beige-700: rgb(223, 209, 188);
-  --color-beige-600: rgb(233, 222, 208);
-  --color-beige-500: rgb(241, 229, 213);
-  --color-beige-400: #f5efe6;
+  --color-grayscale-500: var(--color-surface-3);
+  --color-grayscale-400: var(--color-surface-2);
 
-  --color-background-400: #f5efe6;
+  --color-beige-700: var(--color-surface-3);
+  --color-beige-600: var(--color-surface-2);
+  --color-beige-500: var(--color-surface);
+  --color-beige-400: var(--color-background);
 
-  --color-black-400: #2d2a24;
+  --color-background-400: var(--color-background);
+
+  --color-black-400: #18181b;
 
   --color-gray-500: #67727c;
   --color-gray-400: #a9b0b7;
-
-  --color-orange-400: #ff8400;
 
   --color-brand-500: #2563eb;
   --color-brand-400: #3b82f6;
@@ -43,4 +50,16 @@
 
   --color-hologram-top: rgb(0, 53, 133);
   --color-hologram-bottom: rgba(0, 82, 145, 0.6);
+}
+
+html[data-theme="dark"] {
+  --color-background: #101013;
+  --color-surface: #18181c;
+  --color-surface-2: #232329;
+  --color-surface-3: #2e2e36;
+  --color-text: #f4f4f5;
+  --color-text-muted: #a1a1aa;
+
+  /* used as "ink" on light surfaces: invert */
+  --color-black-400: #f4f4f5;
 }
