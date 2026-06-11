@@ -9,7 +9,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-    <path :d="techIconPaths[props.slug]" fill="currentColor" />
+  <svg :viewBox="techIconPaths[props.slug].viewBox" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+    <path :d="techIconPaths[props.slug].d" fill="currentColor" />
   </svg>
 </template>

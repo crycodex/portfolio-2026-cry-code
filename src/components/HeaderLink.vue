@@ -28,7 +28,7 @@ const props = defineProps<{
   text-transform: uppercase;
   z-index: 2;
   border-radius: 100px;
-  padding: var(--space-xxs) 0;
+  padding: var(--space-xs) 0;
 
   &::after {
     content: "";

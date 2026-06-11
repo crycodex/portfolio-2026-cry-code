@@ -25,8 +25,14 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 .theme-toggle {
-  &-dark {
-    background-color: var(--color-dark-blue-500);
+  &:not(:hover) {
+    background-color: color-mix(in srgb, var(--color-surface-3) 60%, transparent);
+  }
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  &-dark:not(:hover) {
+    background-color: color-mix(in srgb, var(--color-dark-blue-500) 70%, transparent);
     color: var(--color-white-400);
     --icon-color: var(--color-white-400);
   }

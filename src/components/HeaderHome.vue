@@ -24,7 +24,7 @@ const ariaLabels = {
 const isMounted = ref(false);
 
 const barStyle = ref({ transform: "" });
-const ITEM_WIDTH = 140;
+const ITEM_WIDTH = 150;
 
 const { isDarkTheme, hasScrolledIntoView } = useHeaderTheme();
 
@@ -123,8 +123,10 @@ onMounted(() => {
   &-links {
     position: relative;
     display: flex;
-    padding: 3px;
-    background-color: var(--color-beige-500);
+    padding: 6px;
+    background-color: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 100px;
     color: var(--color-text-400);
     transition:
@@ -132,17 +134,17 @@ onMounted(() => {
       background-color 0.1s ease-in-out;
 
     &-dark {
-      background-color: var(--color-dark-blue-500);
+      background-color: color-mix(in srgb, var(--color-dark-blue-500) 65%, transparent);
       color: var(--color-white-400);
     }
   }
 
   &-bar {
     position: absolute;
-    top: 3px;
-    left: 3px;
-    height: calc(100% - 6px);
-    width: 140px;
+    top: 6px;
+    left: 6px;
+    height: calc(100% - 12px);
+    width: 150px;
     background: var(--color-brand-400);
     border-radius: 100px;
     transition:
@@ -170,7 +172,7 @@ onMounted(() => {
     background: none;
     transition: color 0.1s ease-in-out;
     font-size: var(--font-size-md);
-    width: 140px;
+    width: 150px;
     white-space: nowrap;
     text-transform: uppercase;
 

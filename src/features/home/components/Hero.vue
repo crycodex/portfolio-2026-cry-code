@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import Button from "../../../components/Button.vue";
+import AwardWreath from "../../../components/AwardWreath.vue";
 import { preloaderVisible } from "../../../composables/usePreloader";
 import { t } from "../../../i18n/utils/translate";
-import { locale } from "../../../i18n/store";
-import { award } from "../../../content/stats";
+import { awards } from "../../../content/stats";
 import { social, socialLinks } from "../../../content/social";
-
-import type { Locale } from "../../../i18n/types";
-
-const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.value ?? "es") as Locale];
 </script>
 
 <template>
@@ -16,8 +12,7 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
     <div class="hero-content grid">
       <div class="hero-content-inner" id="hero-content-inner">
         <div class="hero-content-copys">
-          <p class="hero-available" v-if="!preloaderVisible">{{ t("available") }}</p>
-          <p class="hero-hello" v-if="!preloaderVisible">{{ t("hello") }}</p>
+         
           <h1 class="hero-title" v-html="t('name-full')"></h1>
           <p class="hero-tagline" v-if="!preloaderVisible">{{ t("about-tagline") }}</p>
           <div class="hero-actions" v-if="!preloaderVisible">
@@ -31,13 +26,8 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
             >
             <Button renderAs="a" variant="border" :href="socialLinks.github" external>GitHub</Button>
           </div>
-          <div class="hero-award" v-if="!preloaderVisible">
-            <span class="hero-award-badge">{{ pick(award.badge) }}</span>
-            <div class="hero-award-copy">
-              <strong>{{ pick(award.title) }}</strong>
-              <span>{{ pick(award.subtitle) }}</span>
-              <span>{{ award.year }}</span>
-            </div>
+          <div class="hero-awards" v-if="!preloaderVisible">
+              <AwardWreath v-for="item in awards" :key="item.year ?? ''" :award="item" />
           </div>
         </div>
       </div>
@@ -155,28 +145,12 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
     margin-top: var(--space-xs);
   }
 
-  &-award {
+  &-awards {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-md);
     margin-top: var(--space-sm);
-    padding: var(--space-xs) var(--space-sm);
-    border: var(--stroke-sm) solid var(--color-brand-400);
-    border-radius: var(--radius-md);
-    width: fit-content;
-
-    &-badge {
-      font-family: "ProFontWindows", sans-serif;
-      font-weight: 700;
-      color: var(--color-brand-400);
-    }
-
-    &-copy {
-      display: flex;
-      flex-direction: column;
-      font-size: var(--font-size-sm);
-      gap: 2px;
-    }
   }
 
 }

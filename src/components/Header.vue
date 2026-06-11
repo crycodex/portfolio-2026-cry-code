@@ -79,7 +79,6 @@ const classNames = computed(() => {
       :class="{
         'header-logo': true,
         'header-logo-isProjectPage': projectId !== null,
-        'header-logo-clickable': scrolledPastHeroVisible,
         'children-unclickable': true,
       }"
       @click="handleLogoClick"
@@ -169,12 +168,8 @@ const classNames = computed(() => {
     display: flex;
     gap: var(--space-xs);
     transition: color 0.2s ease-in-out;
-    opacity: var(--scrolled);
-    pointer-events: none;
-
-    &-clickable {
-      pointer-events: all;
-    }
+    opacity: 1;
+    pointer-events: all;
 
     @include mixins.mq("md") {
       gap: var(--space-sm);

@@ -19,11 +19,9 @@ export const skills: Skill[] = [
   { name: "PostgreSQL", slug: "postgresql" },
   { name: "Docker", slug: "docker" },
   { name: "Git", slug: "git" },
-  {name: "Supabase", slug: "supabase" },
-  {name: "Next.js", slug: "nextdotjs" },
-  {name: "Python", slug: "python" },
-  {name: "Astro", slug: "astro" },
-  {name: "AWS", slug: "aws" },
-  {name: "GCP", slug: "gcp" },
-
-  ] as const;
+  { name: "Supabase", slug: "supabase" },
+  { name: "Python", slug: "python" },
+  { name: "Astro", slug: "astro" },
+  { name: "AWS", slug: "aws" },
+  { name: "GCP", slug: "gcp" },
+] as const;
