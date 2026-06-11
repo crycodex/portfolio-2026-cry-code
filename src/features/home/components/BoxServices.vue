@@ -6,6 +6,7 @@ import AppearingText from "../../../components/AppearingText.vue";
 import { BREAKPOINTS } from "../../../utils/sizes";
 import { Vector3 } from "three";
 import ProjectedElement from "../../../components/ProjectedElement.vue";
+import TechIcon from "../../../components/icons/TechIcon.vue";
 import { skills } from "../../../content/skills";
 
 const point = new Vector3(0.75, 2.75, 6.75);
@@ -115,13 +116,14 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
           />
         </div>
         <div class="box-services-list">
-          <div class="box-services-list-item" v-for="(skill, index) in skills" :key="skill">
+          <div class="box-services-list-item" v-for="(skill, index) in skills" :key="skill.slug">
+            <TechIcon class="box-services-list-item-icon" :slug="skill.slug" />
             <p class="box-services-list-item-name">
               <AppearingText
-                :text="skill"
+                :text="skill.name"
                 :steps="1"
                 :duration="0.35"
-                @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0.15 + index * 0.1)"
+                @timeline:created="(tl: gsap.core.Timeline) => handleTimelineCreated(tl, 0.15 + index * 0.05)"
               />
             </p>
           </div>
@@ -210,25 +212,20 @@ const handleTimelineCreated = (timeline: gsap.core.Timeline, delay: number) => {
   }
 
   &-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xs) var(--space-md);
 
     &-item {
       display: flex;
-      flex-direction: column;
-      padding-left: 18px;
-      position: relative;
+      align-items: center;
+      gap: var(--space-xs);
 
-      &::before {
-        content: "";
-        position: absolute;
-        left: 2px;
-        top: 6px;
-        width: 4px;
-        height: 4px;
-        background-color: var(--color-text-cyan-400);
-        border-radius: 50%;
+      &-icon {
+        flex-shrink: 0;
+        width: var(--icon-size-xs);
+        height: var(--icon-size-xs);
+        color: var(--color-text-cyan-300);
       }
 
       &-name {

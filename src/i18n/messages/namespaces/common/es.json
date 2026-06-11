@@ -41,5 +41,9 @@
   "view-more": "ver más",
   "view-project": "Ver proyecto",
   "disable-dark-mode": "Desactivar modo oscuro",
-  "enable-dark-mode": "Activar modo oscuro"
+  "enable-dark-mode": "Activar modo oscuro",
+  "kind-talk": "Charla",
+  "kind-podcast": "Podcast",
+  "kind-workshop": "Taller",
+  "switch-language": "Cambiar idioma"
 }

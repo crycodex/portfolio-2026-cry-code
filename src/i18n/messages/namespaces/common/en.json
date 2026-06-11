@@ -41,5 +41,9 @@
   "view-more": "view more",
   "view-project": "View project",
   "disable-dark-mode": "Disable dark mode",
-  "enable-dark-mode": "Enable dark mode"
+  "enable-dark-mode": "Enable dark mode",
+  "kind-talk": "Talk",
+  "kind-podcast": "Podcast",
+  "kind-workshop": "Workshop",
+  "switch-language": "Switch language"
 }

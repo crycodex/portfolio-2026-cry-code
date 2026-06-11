@@ -6,7 +6,6 @@ import About from "./About.vue";
 import Projects from "./Projects.vue";
 import Contact from "./Contact.vue";
 import Trajectory from "./Trajectory.vue";
-import AboutMe from "./AboutMe.vue";
 import Certifications from "./Certifications.vue";
 import Talks from "./Talks.vue";
 import Footer from "../../../components/Footer.vue";
@@ -163,7 +162,6 @@ watch(
       </div>
       <Trajectory v-if="projectsLoaded" />
       <Projects id="projects" @loaded="handleProjectsLoaded" />
-      <AboutMe v-if="projectsLoaded" />
       <Certifications v-if="projectsLoaded" />
       <Talks v-if="projectsLoaded" />
       <div ref="contactRef" class="home-contact">

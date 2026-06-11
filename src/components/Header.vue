@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import Button from "./Button.vue";
 import Logo from "./Logo.vue";
 import { computed, ref } from "vue";
 import { t } from "../i18n/utils/translate";
 import { useHeaderTheme } from "../composables/useHeaderTheme";
 import { lenis } from "../composables/useScroll";
 import { projectId } from "../composables/useRouteObserver";
-import { social } from "../content/social";
 import ButtonRound from "./ButtonRound.vue";
 import ArrowRight from "./icons/ArrowRight.vue";
 import SoundsToggle from "./SoundsToggle.vue";
 import ThemeToggle from "./ThemeToggle.vue";
+import LangSwitch from "./LangSwitch.vue";
 import { isFeatureEnabled } from "../utils/features";
 import { useRouter } from "../composables/useRouter";
 import { useFirstRoute } from "../composables/useFirstRoute";
@@ -58,12 +57,6 @@ const classNames = computed(() => {
   };
 });
 
-const getInTouchClassNames = computed(() => {
-  return {
-    "header-get-in-touch": true,
-    "header-get-in-touch-isProjectPage": projectId.value !== null,
-  };
-});
 </script>
 
 <template>
@@ -97,17 +90,7 @@ const getInTouchClassNames = computed(() => {
       <Logo class="header-logo-image" />
     </div>
     <div class="header-right">
-      <Button
-        renderAs="a"
-        variant="accent"
-        :aria-label="t('get-in-touch')"
-        :href="social.find((item) => item.name === 'mail')?.url ?? ''"
-        external
-        :class="getInTouchClassNames"
-        data-cursor="circle-white"
-        data-hoversound="hover"
-        >{{ t("get-in-touch") }}</Button
-      >
+      <LangSwitch round :isDarkTheme="isDarkTheme" />
       <ThemeToggle class="header-theme-toggle" :isDarkTheme="isDarkTheme" />
       <SoundsToggle class="header-sounds-toggle" :isDarkTheme="isDarkTheme" v-if="isFeatureEnabled('sounds')" />
     </div>
@@ -161,14 +144,6 @@ const getInTouchClassNames = computed(() => {
     transform: translateY(-50%);
   }
 
-  &-get-in-touch {
-    width: fit-content;
-
-    &-isProjectPage {
-      opacity: 1 !important;
-    }
-  }
-
   &-right {
     position: absolute;
     right: var(--space-outer);
@@ -187,14 +162,6 @@ const getInTouchClassNames = computed(() => {
   &-dark {
     color: var(--color-white-400);
     --icon-color: var(--color-white-400);
-  }
-
-  &-get-in-touch {
-    display: none;
-
-    @include mixins.mq("md") {
-      display: flex;
-    }
   }
 
   &-logo {

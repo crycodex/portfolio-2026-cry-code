@@ -31,44 +31,36 @@ const parseEvent = (event: string) => {
 
       <ul class="talks-grid">
         <li v-for="(talk, index) in talks" :key="talk.title.es" class="talks-card">
-          <div class="talks-card-index" aria-hidden="true">{{ String(index + 1).padStart(2, "0") }}</div>
-          <div class="talks-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div class="talks-card-top">
+            <span :class="['talks-card-kind', `talks-card-kind-${talk.kind}`]">{{ t(`kind-${talk.kind}`) }}</span>
+            <span class="talks-card-index" aria-hidden="true">{{ String(index + 1).padStart(2, "0") }}</span>
+          </div>
+          <h3 class="talks-card-title">{{ pick(talk.title) }}</h3>
+          <p class="talks-card-event">
+            <span class="talks-card-venue">{{ parseEvent(pick(talk.event)).venue }}</span>
+            <span v-if="parseEvent(pick(talk.event)).date" class="talks-card-date">
+              · {{ parseEvent(pick(talk.event)).date }}
+            </span>
+          </p>
+          <a
+            v-if="talk.url"
+            :href="talk.url"
+            class="talks-card-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="circle-white"
+          >
+            {{ t("view-more") }}
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path
-                d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm6 0v1a6 6 0 0 1-12 0v-1M12 19v3"
+                d="M3 8h10M9 4l4 4-4 4"
                 stroke="currentColor"
-                stroke-width="1.75"
+                stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
             </svg>
-          </div>
-          <div class="talks-card-body">
-            <h3 class="talks-card-title">{{ pick(talk.title) }}</h3>
-            <p class="talks-card-venue">{{ parseEvent(pick(talk.event)).venue }}</p>
-            <p v-if="parseEvent(pick(talk.event)).date" class="talks-card-date">
-              {{ parseEvent(pick(talk.event)).date }}
-            </p>
-            <a
-              v-if="talk.url"
-              :href="talk.url"
-              class="talks-card-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="circle-white"
-            >
-              {{ t("view-more") }}
-              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
+          </a>
         </li>
       </ul>
     </div>
@@ -163,21 +155,19 @@ const parseEvent = (event: string) => {
 
     @include mixins.mq("md") {
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-lg);
     }
   }
 
   &-card {
-    position: relative;
     display: flex;
-    gap: var(--space-md);
+    flex-direction: column;
+    gap: var(--space-xs);
     padding: var(--space-md);
     background-color: var(--color-beige-400);
     border: var(--stroke-sm) solid var(--color-beige-600);
     border-radius: var(--radius-md);
     transition:
       border-color 0.2s ease,
-      box-shadow 0.2s ease,
       transform 0.2s ease;
 
     @include mixins.mq("md") {
@@ -186,54 +176,50 @@ const parseEvent = (event: string) => {
 
     @include mixins.hover {
       &:hover {
-        border-color: var(--color-brand-300);
-        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12);
+        border-color: var(--color-brand-400);
         transform: translateY(-2px);
       }
     }
 
-    &-index {
-      position: absolute;
-      top: var(--space-sm);
-      right: var(--space-sm);
-      font-family: "ProFontWindows", sans-serif;
-      font-size: var(--font-size-xs);
-      font-weight: 700;
-      color: var(--color-brand-300);
-      opacity: 0.6;
-    }
-
-    &-icon {
-      flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
+    &-top {
       display: flex;
       align-items: center;
-      justify-content: center;
-      background-color: var(--color-beige-600);
-      border: 2px solid var(--color-brand-400);
-      color: var(--color-brand-400);
+      justify-content: space-between;
+      margin-bottom: var(--space-xxs);
+    }
 
-      svg {
-        width: 20px;
-        height: 20px;
+    &-kind {
+      font-size: var(--font-size-xxs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px var(--space-xs);
+      border-radius: var(--radius-sm);
+      color: var(--color-brand-400);
+      border: var(--stroke-sm) solid var(--color-brand-400);
+
+      &-podcast {
+        color: var(--color-cyan-500);
+        border-color: var(--color-cyan-500);
+      }
+
+      &-workshop {
+        color: var(--color-text-300);
+        border-color: var(--color-text-300);
       }
     }
 
-    &-body {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-xxs);
-      padding-right: var(--space-lg);
+    &-index {
+      font-family: "ProFontWindows", sans-serif;
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      color: var(--color-text-300);
+      opacity: 0.6;
     }
 
     &-title {
       font-weight: 700;
       font-size: var(--font-size-md);
-      color: var(--color-brand-400);
       line-height: 1.35;
 
       @include mixins.mq("md") {
@@ -241,17 +227,18 @@ const parseEvent = (event: string) => {
       }
     }
 
-    &-venue {
+    &-event {
       font-size: var(--font-size-sm);
-      font-weight: 700;
-      color: var(--color-text-400);
       line-height: 1.4;
     }
 
+    &-venue {
+      font-weight: 700;
+      color: var(--color-text-400);
+    }
+
     &-date {
-      font-size: var(--font-size-sm);
       color: var(--color-text-300);
-      font-style: italic;
     }
 
     &-link {
@@ -281,7 +268,6 @@ const parseEvent = (event: string) => {
           }
         }
       }
-
     }
   }
 }

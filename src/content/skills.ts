@@ -1,14 +1,29 @@
-export const skills = [
-  "Flutter",
-  "Kotlin",
-  "Swift",
-  "Dart",
-  "React",
-  "Vue.js",
-  "TypeScript",
-  "Node.js",
-  "Next.js",
-  "Firebase",
-  "PostgreSQL",
-  "Docker",
-] as const;
+import type { TechSlug } from "../components/icons/techPaths";
+
+export type Skill = {
+  name: string;
+  slug: TechSlug;
+};
+
+export const skills: Skill[] = [
+  { name: "Flutter", slug: "flutter" },
+  { name: "Kotlin", slug: "kotlin" },
+  { name: "Swift", slug: "swift" },
+  { name: "Dart", slug: "dart" },
+  { name: "React", slug: "react" },
+  { name: "Vue.js", slug: "vuedotjs" },
+  { name: "TypeScript", slug: "typescript" },
+  { name: "Node.js", slug: "nodedotjs" },
+  { name: "Next.js", slug: "nextdotjs" },
+  { name: "Firebase", slug: "firebase" },
+  { name: "PostgreSQL", slug: "postgresql" },
+  { name: "Docker", slug: "docker" },
+  { name: "Git", slug: "git" },
+  {name: "Supabase", slug: "supabase" },
+  {name: "Next.js", slug: "nextdotjs" },
+  {name: "Python", slug: "python" },
+  {name: "Astro", slug: "astro" },
+  {name: "AWS", slug: "aws" },
+  {name: "GCP", slug: "gcp" },
+
+  ] as const;
