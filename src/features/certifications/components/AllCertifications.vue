@@ -1,16 +1,29 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 import Link from "../../../components/Link.vue";
-import X from "../../../components/icons/X.vue";
+import ArrowRight from "../../../components/icons/ArrowRight.vue";
 import CertIcon from "../../../components/CertIcon.vue";
 import { t } from "../../../i18n/utils/translate";
 import { locale } from "../../../i18n/store";
 import { lenis } from "../../../composables/useScroll";
+import { useRouter } from "../../../composables/useRouter";
+import { useFirstRoute } from "../../../composables/useFirstRoute";
 import { certifications } from "../../../content/certifications";
 
 import type { Locale } from "../../../i18n/types";
 
 const lang = computed(() => (locale.value ?? "es") as Locale);
+
+const router = useRouter();
+const { isFirstRoute } = useFirstRoute();
+
+const goBack = () => {
+  if (isFirstRoute.value) {
+    router.push("/");
+  } else {
+    router.back();
+  }
+};
 
 onMounted(() => {
   lenis.value?.scrollTo(0, { immediate: true });
@@ -20,14 +33,23 @@ onMounted(() => {
 <template>
   <div class="all-certs">
     <div class="all-certs-inner grid">
+      <button
+        type="button"
+        class="all-certs-back"
+        @click="goBack"
+        :aria-label="t('go-back')"
+        data-cursor="arrow"
+        data-sound="click"
+        data-hoversound="hover"
+      >
+        <ArrowRight class="all-certs-back-icon" />
+        <span>{{ t("go-back") }}</span>
+      </button>
       <header class="all-certs-header">
         <div class="all-certs-header-copy">
           <h1 class="all-certs-title">{{ t("all-certifications") }}</h1>
           <p class="all-certs-subtitle">{{ t("certifications-subtitle") }}</p>
         </div>
-        <Link to="/" replace class="all-certs-close" :aria-label="t('back-to-home')" data-cursor="arrow">
-          <X class="all-certs-close-icon" />
-        </Link>
       </header>
 
       <ul class="all-certs-list">
@@ -97,27 +119,40 @@ onMounted(() => {
     max-width: 640px;
   }
 
-  &-close {
-    flex-shrink: 0;
-    display: flex;
+  &-back {
+    grid-column: 1 / 13;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    gap: var(--space-xs);
+    width: fit-content;
+    margin-bottom: var(--space-lg);
+    padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
     border: var(--stroke-md) solid var(--color-grayscale-400);
+    background: transparent;
     color: var(--color-text-400);
     --icon-color: var(--color-text-400);
-    transition: background-color 0.1s ease-in-out;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background-color 0.1s ease-in-out,
+      border-color 0.1s ease-in-out;
+
+    @include mixins.mq("lg") {
+      grid-column: 2 / 12;
+    }
 
     @include mixins.hover {
       &:hover {
         background-color: var(--color-grayscale-400);
+        border-color: var(--color-brand-400);
       }
     }
 
     &-icon {
       width: var(--icon-size-sm);
+      transform: rotate(180deg);
     }
   }
 

@@ -2,11 +2,13 @@
 import { computed, onMounted, ref } from "vue";
 import Link from "../../../components/Link.vue";
 import Tag from "../../../components/Tag.vue";
-import X from "../../../components/icons/X.vue";
+import ArrowRight from "../../../components/icons/ArrowRight.vue";
 import { resolveTagVariant } from "../../../components/tagVariants";
 import { t } from "../../../i18n/utils/translate";
 import { locale } from "../../../i18n/store";
 import { lenis } from "../../../composables/useScroll";
+import { useRouter } from "../../../composables/useRouter";
+import { useFirstRoute } from "../../../composables/useFirstRoute";
 import { getProjects, PROJECT_CATEGORIES } from "../../../content/projects/data";
 
 import type { Locale } from "../../../i18n/types";
@@ -30,6 +32,17 @@ const filters = computed(() => ["all", ...PROJECT_CATEGORIES] as const);
 const filterLabel = (filter: ProjectCategory | "all") =>
   filter === "all" ? t("filter-all") : t(`category-${filter}`);
 
+const router = useRouter();
+const { isFirstRoute } = useFirstRoute();
+
+const goBack = () => {
+  if (isFirstRoute.value) {
+    router.push("/");
+  } else {
+    router.back();
+  }
+};
+
 onMounted(() => {
   lenis.value?.scrollTo(0, { immediate: true });
 });
@@ -38,14 +51,23 @@ onMounted(() => {
 <template>
   <div class="all-projects">
     <div class="all-projects-inner grid">
+      <button
+        type="button"
+        class="all-projects-back"
+        @click="goBack"
+        :aria-label="t('go-back')"
+        data-cursor="arrow"
+        data-sound="click"
+        data-hoversound="hover"
+      >
+        <ArrowRight class="all-projects-back-icon" />
+        <span>{{ t("go-back") }}</span>
+      </button>
       <header class="all-projects-header">
         <div class="all-projects-header-copy">
           <h1 class="all-projects-title">{{ t("all-projects") }}</h1>
           <p class="all-projects-subtitle">{{ t("projects-subtitle") }}</p>
         </div>
-        <Link to="/" replace class="all-projects-close" :aria-label="t('back-to-home')" data-cursor="arrow">
-          <X class="all-projects-close-icon" />
-        </Link>
       </header>
 
       <div class="all-projects-filters">
@@ -65,7 +87,6 @@ onMounted(() => {
           v-for="project in filtered"
           :key="project.slug"
           :to="`/project/${project.slug}`"
-          replace
           class="all-projects-card"
           :aria-label="t('switch-to-project', { project: project.title })"
           data-cursor="arrow"
@@ -107,6 +128,43 @@ onMounted(() => {
     width: 100%;
   }
 
+  &-back {
+    grid-column: 1 / 13;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    width: fit-content;
+    margin-bottom: var(--space-lg);
+    padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    border: var(--stroke-md) solid var(--color-grayscale-400);
+    background: transparent;
+    color: var(--color-text-400);
+    --icon-color: var(--color-text-400);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background-color 0.1s ease-in-out,
+      border-color 0.1s ease-in-out;
+
+    @include mixins.mq("lg") {
+      grid-column: 2 / 12;
+    }
+
+    @include mixins.hover {
+      &:hover {
+        background-color: var(--color-grayscale-400);
+        border-color: var(--color-brand-400);
+      }
+    }
+
+    &-icon {
+      width: var(--icon-size-sm);
+      transform: rotate(180deg);
+    }
+  }
+
   &-header {
     grid-column: 1 / 13;
     display: flex;
@@ -135,30 +193,6 @@ onMounted(() => {
     font-size: var(--font-size-md);
     color: var(--color-text-300);
     max-width: 640px;
-  }
-
-  &-close {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: var(--stroke-md) solid var(--color-grayscale-400);
-    color: var(--color-text-400);
-    --icon-color: var(--color-text-400);
-    transition: background-color 0.1s ease-in-out;
-
-    @include mixins.hover {
-      &:hover {
-        background-color: var(--color-grayscale-400);
-      }
-    }
-
-    &-icon {
-      width: var(--icon-size-sm);
-    }
   }
 
   &-filters {
