@@ -13,8 +13,8 @@
   opacity: 1;
 
   &-svg {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: auto;
     transition:
       transform 0.2s var(--ease-power2-in),
       opacity 0.2s var(--ease-power2-in);
@@ -23,10 +23,6 @@
   &-rect {
     transform-origin: bottom center;
     transition: transform 0.3s ease-in-out;
-  }
-
-  &-path {
-    fill: var(--color-text-400);
   }
 
   &-hidden {

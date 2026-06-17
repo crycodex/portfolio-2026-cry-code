@@ -1,11 +1,11 @@
 <template>
-  <svg class="logo-svg" viewBox="0 0 56 61" xmlns="http://www.w3.org/2000/svg" height="60" width="56">
-    <use href="#logo-path" />
-  </svg>
+  <img class="logo-image" src="/img/logo/logo_remove.png" alt="cry.code" />
 </template>
 
 <style scoped lang="scss">
-.logo-svg {
-  fill: var(--icon-color);
+.logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 </style>

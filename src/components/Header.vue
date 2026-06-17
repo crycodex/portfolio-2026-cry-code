@@ -182,10 +182,10 @@ const classNames = computed(() => {
     }
 
     &-image {
-      width: 36px;
+      width: 84px;
 
       @include mixins.mq("md") {
-        width: 40px;
+        width: 100px;
       }
     }
 
