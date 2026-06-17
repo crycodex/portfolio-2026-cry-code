@@ -5,7 +5,7 @@ import type { ProjectContent } from "../../types";
 export default {
   title: "Swapme 2.0 - Clothing Exchange App",
   theme: "light",
-  tags: ["flutter", "dart", "firebase"],
+  tags: ["Flutter", "Dart", "Firebase"],
   source: "https://github.com/crycodex",
   description:
     "Mobile app for clothing exchange, renewed with new features.<br/><br/>Built with Flutter, Dart, and Firebase for a scalable cross-platform experience.",

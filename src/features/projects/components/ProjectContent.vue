@@ -5,38 +5,28 @@ import ProjectComponent from "./ProjectComponent.vue";
 import Link from "../../../components/Link.vue";
 import NextProject from "./NextProject.vue";
 import { locale } from "../../../i18n/store";
-import { previews } from "../../../content/projects/previews";
-import { ref, computed, watch, onMounted } from "vue";
+import { getProjects } from "../../../content/projects/data";
+import { computed } from "vue";
 
-import type { ProjectContent, ProjectPreview } from "../../../content/types";
+import type { Locale } from "../../../i18n/types";
+import type { ProjectContent } from "../../../content/types";
 
 const { content, projectId } = defineProps<{
   content: ProjectContent;
   projectId: string;
 }>();
 
-const loadedPreviews = ref<ProjectPreview[] | null>(null);
-
-const loadPreviews = async () => {
-  const module = await previews[locale.value as keyof typeof previews]();
-  loadedPreviews.value = module.default;
-};
-
 const nextProject = computed(() => {
-  const previews = loadedPreviews.value;
-  if (!previews) return null;
+  const lang = locale.value as Locale;
+  if (!lang) return null;
 
-  const currentIndex = previews.findIndex((p) => p.slug === projectId);
+  const list = getProjects(lang);
+  const currentIndex = list.findIndex((p) => p.slug === projectId);
   if (currentIndex === -1) return null;
 
-  const nextIndex = (currentIndex + 1) % previews.length;
-
-  return previews[nextIndex];
+  const nextIndex = (currentIndex + 1) % list.length;
+  return list[nextIndex];
 });
-
-watch(locale, loadPreviews);
-
-onMounted(loadPreviews);
 </script>
 
 <template>

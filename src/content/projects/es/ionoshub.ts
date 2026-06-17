@@ -5,7 +5,7 @@ import type { ProjectContent } from "../../types";
 export default {
   title: "IonosHub - Landing Page",
   theme: "dark",
-  tags: ["react", "typescript", "vercel"],
+  tags: ["React", "TypeScript", "Vercel"],
   live: "https://cry-code.vercel.app/",
   source: "https://github.com/crycodex",
   description:

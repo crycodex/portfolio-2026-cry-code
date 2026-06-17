@@ -1,8 +1,18 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import NotchSection from "../../../components/NotchSection.vue";
 import Banner from "../../../components/Banner.vue";
+import Button from "../../../components/Button.vue";
+import Link from "../../../components/Link.vue";
+import CertIcon from "../../../components/CertIcon.vue";
 import { t } from "../../../i18n/utils/translate";
-import { certifications } from "../../../content/certifications";
+import { locale } from "../../../i18n/store";
+import { getFeaturedCertifications } from "../../../content/certifications";
+
+import type { Locale } from "../../../i18n/types";
+
+const lang = computed(() => (locale.value ?? "es") as Locale);
+const featured = getFeaturedCertifications();
 </script>
 
 <template>
@@ -16,11 +26,24 @@ import { certifications } from "../../../content/certifications";
         <p class="certifications-header-subtitle">{{ t("certifications-subtitle") }}</p>
       </div>
       <ul class="certifications-list">
-        <li v-for="cert in certifications" :key="cert.title" class="certifications-item">
-          <h3 class="certifications-item-title">{{ cert.title }}</h3>
-          <p class="certifications-item-issuer">{{ cert.issuer }}</p>
+        <li v-for="cert in featured" :key="cert.id" class="certifications-item">
+          <div class="certifications-item-icon">
+            <CertIcon :name="cert.icon" />
+          </div>
+          <div class="certifications-item-body">
+            <h3 class="certifications-item-title">{{ cert.title }}</h3>
+            <p v-if="cert.issuer" class="certifications-item-issuer">{{ cert.issuer }}</p>
+            <p class="certifications-item-description">{{ cert.description[lang] }}</p>
+          </div>
         </li>
       </ul>
+      <div class="certifications-actions">
+        <Link to="/certifications" class="certifications-view-all" data-cursor="arrow" data-sound="click">
+          <Button renderAs="div" variant="border" class="children-unclickable" data-hoversound="hover">
+            {{ t("view-all-certifications") }}
+          </Button>
+        </Link>
+      </div>
     </div>
   </section>
 </template>
@@ -109,21 +132,106 @@ import { certifications } from "../../../content/certifications";
   }
 
   &-item {
-    padding: var(--space-md);
-    border: var(--stroke-sm) solid var(--color-beige-500);
-    border-radius: var(--radius-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    border: var(--stroke-sm) solid var(--color-beige-700);
+    border-radius: var(--radius-lg);
     background: var(--color-beige-400);
+    overflow: hidden;
+    transition:
+      transform 0.15s var(--ease-power2-out),
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-brand-400), var(--color-brand-300));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s var(--ease-power2-out);
+    }
+
+    @include mixins.hover {
+      &:hover {
+        transform: translateY(-4px);
+        border-color: var(--color-brand-400);
+        box-shadow: 0 12px 28px -16px rgba(37, 99, 235, 0.45);
+
+        &::before {
+          transform: scaleX(1);
+        }
+
+        .certifications-item-icon {
+          border-color: var(--color-brand-300);
+        }
+      }
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      font-size: 30px;
+      line-height: 1;
+      border-radius: var(--radius-md);
+      background: var(--color-white-400);
+      border: var(--stroke-sm) solid var(--color-beige-700);
+      color: var(--color-brand-400);
+      box-shadow: 0 4px 12px -8px rgba(0, 0, 0, 0.35);
+      transition: border-color 0.15s ease-in-out;
+    }
+
+    &-body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
 
     &-title {
-      font-weight: 700;
+      font-weight: 800;
       font-size: var(--font-size-md);
-      margin-bottom: var(--space-xs);
+      line-height: 1.25;
+      color: var(--color-text-400);
     }
 
     &-issuer {
-      font-size: var(--font-size-sm);
-      color: var(--color-text-400);
+      width: fit-content;
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-brand-500);
     }
+
+    &-description {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-300);
+      line-height: var(--line-height-copy);
+    }
+  }
+
+  &-actions {
+    grid-column: 1 / 13;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xl);
+
+    @include mixins.mq("lg") {
+      grid-column: 3 / 11;
+    }
+  }
+
+  &-view-all {
+    width: fit-content;
   }
 }
 </style>

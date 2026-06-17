@@ -3,27 +3,41 @@ import { projectId, projectVisible, recentProjectId } from "../../../composables
 import { isTransitioning } from "../../../composables/useProjectTransition";
 import { ref, watch } from "vue";
 import { projectModules } from "../../../content/projects";
+import { getProjectMetaBySlug } from "../../../content/projects/data";
+import { buildProjectContent } from "../../../content/projects/buildContent";
 import ProjectContent from "./ProjectContent.vue";
 import Footer from "../../../components/Footer.vue";
 import { locale } from "../../../i18n/store";
 import { lenis } from "../../../composables/useScroll";
 
 import type { Locale } from "../../../i18n/types";
+import type { ProjectContent as ProjectContentType } from "../../../content/types";
 
 const loading = ref(true);
-const content = ref(null);
+const content = ref<ProjectContentType | null>(null);
 const error = ref<Error | null>(null);
 
-const fetchProject = async (project: string | undefined) => {
-  try {
-    const module = await projectModules[locale.value as Locale][project as string].default;
-    content.value = module;
-    loading.value = false;
-  } catch (err) {
-    error.value = new Error(`Failed to fetch project ${project}`);
-  } finally {
-    loading.value = false;
+const fetchProject = (slug: string | undefined) => {
+  const lang = locale.value as Locale;
+  if (!slug || !lang) return;
+
+  // Prefer a hand-authored content file when it exists; otherwise build a
+  // generic detail page from the flat project metadata.
+  const authored = projectModules[lang]?.[slug];
+  if (authored) {
+    content.value = authored.default;
+    error.value = null;
+  } else {
+    const meta = getProjectMetaBySlug(slug);
+    if (meta) {
+      content.value = buildProjectContent(meta, lang);
+      error.value = null;
+    } else {
+      content.value = null;
+      error.value = new Error(`Project not found: ${slug}`);
+    }
   }
+  loading.value = false;
 };
 
 watch(

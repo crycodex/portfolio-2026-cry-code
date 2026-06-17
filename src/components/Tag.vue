@@ -4,14 +4,16 @@ import { tagLabels, type TagVariant } from "./tagVariants";
 
 const props = defineProps<{
   variant: TagVariant;
+  label?: string;
 }>();
 
 const classes = computed(() => ["tag", `tag-variant-${props.variant}`]);
+const copy = computed(() => props.label ?? tagLabels[props.variant]);
 </script>
 
 <template>
   <div :class="classes">
-    <p class="tag-copy">{{ tagLabels[props.variant] }}</p>
+    <p class="tag-copy">{{ copy }}</p>
   </div>
 </template>
 
@@ -70,6 +72,96 @@ const classes = computed(() => ["tag", `tag-variant-${props.variant}`]);
     &-api {
       background-color: #5c6bc0;
       color: white;
+    }
+
+    &-javascript {
+      background-color: #f7df1e;
+      color: #3a3000;
+    }
+
+    &-vue {
+      background-color: #42b883;
+      color: #06281a;
+    }
+
+    &-html {
+      background-color: #e34f26;
+      color: white;
+    }
+
+    &-css {
+      background-color: #1572b6;
+      color: white;
+    }
+
+    &-tailwind {
+      background-color: #38bdf8;
+      color: #07344a;
+    }
+
+    &-php {
+      background-color: #777bb4;
+      color: white;
+    }
+
+    &-mysql {
+      background-color: #4479a1;
+      color: white;
+    }
+
+    &-mongodb {
+      background-color: #47a248;
+      color: white;
+    }
+
+    &-laravel {
+      background-color: #ff2d20;
+      color: white;
+    }
+
+    &-python {
+      background-color: #3776ab;
+      color: white;
+    }
+
+    &-android {
+      background-color: #3ddc84;
+      color: #06351a;
+    }
+
+    &-ios {
+      background-color: #1d1d1f;
+      color: white;
+    }
+
+    &-sparkar {
+      background-color: #0082fb;
+      color: white;
+    }
+
+    &-figma {
+      background-color: #f24e1e;
+      color: white;
+    }
+
+    &-adobexd {
+      background-color: #470137;
+      color: #ff61f6;
+    }
+
+    &-nextjs {
+      background-color: #111;
+      color: white;
+    }
+
+    &-astro {
+      background-color: #ff5d01;
+      color: white;
+    }
+
+    &-pinia {
+      background-color: #ffd859;
+      color: #3a3000;
     }
 
     &-gray {

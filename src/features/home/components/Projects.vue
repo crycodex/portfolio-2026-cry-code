@@ -1,28 +1,28 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
-import { previews } from "../../../content/projects/previews";
+import { getFeaturedProjects } from "../../../content/projects/data";
 import { locale } from "../../../i18n/store";
 import PreviewCard from "../../projects/components/PreviewCard.vue";
 import NotchSection from "../../../components/NotchSection.vue";
 import Banner from "../../../components/Banner.vue";
+import Button from "../../../components/Button.vue";
+import Link from "../../../components/Link.vue";
 import { t } from "../../../i18n/utils/translate";
-import { isFeatureEnabled } from "../../../utils/features";
 
-import type { ProjectPreview } from "../../../content/types";
+import type { Locale } from "../../../i18n/types";
+import type { ProjectView } from "../../../content/projects/data";
 
-const loadedPreviews = ref<ProjectPreview[] | null>(null);
+const loadedPreviews = ref<ProjectView[] | null>(null);
 
 const emit = defineEmits<{
-  (e: "loaded", previews: ProjectPreview[]): void;
+  (e: "loaded", previews: ProjectView[]): void;
 }>();
 
-const loadPreviews = async () => {
+const loadPreviews = () => {
   if (!locale.value) return;
-  const func = previews[locale.value as keyof typeof previews];
-  if (!func) return;
-  const module = await func();
-  loadedPreviews.value = module.default;
-  emit("loaded", module.default);
+  const featured = getFeaturedProjects(locale.value as Locale);
+  loadedPreviews.value = featured;
+  emit("loaded", featured);
 };
 
 watch(locale, loadPreviews);
@@ -43,8 +43,16 @@ onMounted(loadPreviews);
     </div>
     <div class="grid">
       <div class="projects-cards">
-        <PreviewCard v-for="preview in loadedPreviews" :key="preview.title" :preview="preview" />
-        <PreviewCard v-if="isFeatureEnabled('startProject')" />
+        <PreviewCard v-for="preview in loadedPreviews" :key="preview.slug" :preview="preview" />
+      </div>
+    </div>
+    <div class="grid">
+      <div class="projects-actions">
+        <Link to="/projects" class="projects-view-all" data-cursor="arrow" data-sound="click">
+          <Button renderAs="div" variant="border" class="children-unclickable" data-hoversound="hover">
+            {{ t("view-all-projects") }}
+          </Button>
+        </Link>
       </div>
     </div>
   </div>
@@ -141,6 +149,20 @@ onMounted(loadPreviews);
       color: var(--color-beige-600);
       --icon-color: var(--color-beige-600);
     }
+  }
+
+  &-actions {
+    grid-column: 1 / span 12;
+    display: flex;
+    justify-content: center;
+
+    @include mixins.mq("lg") {
+      grid-column: 3 / span 8;
+    }
+  }
+
+  &-view-all {
+    width: fit-content;
   }
 
   &-cards {

@@ -24,6 +24,18 @@ export const projectVisible = computed(() => {
   return projectId.value !== null && !isTransitioning.value;
 });
 
+// -----------------------------------------------------------------------------
+// "VIEW ALL" OVERLAY ROUTES
+// -----------------------------------------------------------------------------
+
+export const allProjectsVisible = computed(() => path.value === "/projects");
+export const allCertificationsVisible = computed(() => path.value === "/certifications");
+
+/** True whenever any full-screen overlay covers the home page. */
+export const homeOverlayVisible = computed(
+  () => projectVisible.value || allProjectsVisible.value || allCertificationsVisible.value,
+);
+
 export const recentProject = ref<string | null>(null);
 
 export const recentProjectId = computed(() => {

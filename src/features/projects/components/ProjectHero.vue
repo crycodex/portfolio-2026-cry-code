@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Tag from "../../../components/Tag.vue";
+import { resolveTagVariant } from "../../../components/tagVariants";
 import Button from "../../../components/Button.vue";
 import { t } from "../../../i18n/utils/translate";
 import Link from "../../../components/Link.vue";
@@ -29,7 +30,7 @@ watch(projectId, () => {
         </h1>
       </div>
       <div class="project-hero-tags">
-        <Tag v-for="tag in content.tags" :key="tag" :variant="tag" />
+        <Tag v-for="tag in content.tags" :key="tag" :variant="resolveTagVariant(tag)" :label="tag" />
       </div>
     </div>
     <p class="project-hero-description" v-html="content.description"></p>

@@ -5,7 +5,7 @@ import type { ProjectContent } from "../../types";
 export default {
   title: "Mobile App Backend",
   theme: "dark",
-  tags: ["firebase", "node", "api"],
+  tags: ["Firebase", "Node.js", "API"],
   source: "https://github.com/crycodex",
   description:
     "Exchange app backend with authentication, storage, and more.<br/><br/>Deployed on Firebase with Node.js and REST APIs.",

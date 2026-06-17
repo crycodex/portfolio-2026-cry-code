@@ -11,8 +11,15 @@ import Home from "./features/home/components/Home.vue";
 import Project from "./features/projects/components/Project.vue";
 import { useProjectTransition } from "./composables/useProjectTransition";
 import { useScroll } from "./composables/useScroll";
-import { projectVisible } from "./composables/useRouteObserver";
+import {
+  projectVisible,
+  allProjectsVisible,
+  allCertificationsVisible,
+  homeOverlayVisible,
+} from "./composables/useRouteObserver";
 import ProjectBackground from "./features/projects/components/ProjectBackground.vue";
+import AllProjects from "./features/projects/components/AllProjects.vue";
+import AllCertifications from "./features/certifications/components/AllCertifications.vue";
 import { useClickSound } from "./features/sounds/composables/useClickSounds";
 import { useTheme } from "./composables/useTheme";
 //import { useHoverSound } from "./features/sounds/composables/useHoverSounds";
@@ -35,9 +42,13 @@ const { isTouch } = useAgent();
   <Header />
 
   <!-- main page -->
-  <div :class="{ 'home-wrapper-projectIsReady': projectVisible }">
+  <div :class="{ 'home-wrapper-projectIsReady': homeOverlayVisible }">
     <Home />
   </div>
+
+  <!-- "view all" overlays -->
+  <AllProjects v-if="allProjectsVisible" />
+  <AllCertifications v-if="allCertificationsVisible" />
 
   <!-- overlay page -->
   <ProjectBackground />
