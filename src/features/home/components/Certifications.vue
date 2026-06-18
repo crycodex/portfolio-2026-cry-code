@@ -21,7 +21,7 @@ const featured = getFeaturedCertifications();
     <NotchSection class="certifications-notch-end" />
     <div class="grid">
       <div class="certifications-header">
-        <Banner class="certifications-header-banner" :copy="t('certifications')" size="sm" animated />
+        <Banner class="certifications-header-banner" :copy="t('certifications-tag')" size="sm" animated />
         <h2 class="certifications-header-title">{{ t("certifications") }}</h2>
         <p class="certifications-header-subtitle">{{ t("certifications-subtitle") }}</p>
       </div>

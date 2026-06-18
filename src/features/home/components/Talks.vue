@@ -24,33 +24,36 @@ const parseEvent = (event: string) => {
     <NotchSection class="talks-notch-end" />
     <div class="talks-inner">
       <header class="talks-header">
-        <Banner class="talks-header-banner" :copy="t('talks')" size="sm" animated />
+        <Banner class="talks-header-banner" :copy="t('talks-tag')" size="sm" animated />
         <h2 class="talks-header-title">{{ t("talks") }}</h2>
         <p class="talks-header-subtitle">{{ t("talks-subtitle") }}</p>
       </header>
 
-      <ul class="talks-grid">
-        <li v-for="(talk, index) in talks" :key="talk.title.es" class="talks-card">
-          <div class="talks-card-top">
-            <span :class="['talks-card-kind', `talks-card-kind-${talk.kind}`]">{{ t(`kind-${talk.kind}`) }}</span>
-            <span class="talks-card-index" aria-hidden="true">{{ String(index + 1).padStart(2, "0") }}</span>
+      <ul class="talks-list">
+        <li v-for="(talk, index) in talks" :key="talk.title.es" :class="['talks-row', `talks-row-${talk.kind}`]">
+          <span class="talks-row-index" aria-hidden="true">{{ String(index + 1).padStart(2, "0") }}</span>
+
+          <div class="talks-row-body">
+            <h3 class="talks-row-title">{{ pick(talk.title) }}</h3>
+            <p class="talks-row-event">
+              <span class="talks-row-venue">{{ parseEvent(pick(talk.event)).venue }}</span>
+              <span v-if="parseEvent(pick(talk.event)).date" class="talks-row-date">
+                · {{ parseEvent(pick(talk.event)).date }}
+              </span>
+            </p>
           </div>
-          <h3 class="talks-card-title">{{ pick(talk.title) }}</h3>
-          <p class="talks-card-event">
-            <span class="talks-card-venue">{{ parseEvent(pick(talk.event)).venue }}</span>
-            <span v-if="parseEvent(pick(talk.event)).date" class="talks-card-date">
-              · {{ parseEvent(pick(talk.event)).date }}
-            </span>
-          </p>
+
+          <span class="talks-row-kind">{{ t(`kind-${talk.kind}`) }}</span>
+
           <a
             v-if="talk.url"
             :href="talk.url"
-            class="talks-card-link"
+            class="talks-row-link"
             target="_blank"
             rel="noopener noreferrer"
             data-cursor="circle-white"
+            :aria-label="t('view-more')"
           >
-            {{ t("view-more") }}
             <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path
                 d="M3 8h10M9 4l4 4-4 4"
@@ -146,90 +149,96 @@ const parseEvent = (event: string) => {
     }
   }
 
-  &-grid {
+  &-list {
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-    list-style: none;
-
-    @include mixins.mq("md") {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  &-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
-    padding: var(--space-md);
-    background-color: var(--color-beige-400);
-    border: var(--stroke-sm) solid var(--color-beige-600);
-    border-radius: var(--radius-md);
-    transition:
-      border-color 0.2s ease,
-      transform 0.2s ease;
+    list-style: none;
+    border-top: var(--stroke-sm) solid var(--color-beige-700);
+  }
+
+  &-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: var(--stroke-sm) solid var(--color-beige-700);
+    transition: padding-left 0.2s var(--ease-power2-out);
 
     @include mixins.mq("md") {
-      padding: var(--space-lg);
+      padding: var(--space-md) 0;
     }
 
     @include mixins.hover {
       &:hover {
-        border-color: var(--color-brand-400);
-        transform: translateY(-2px);
+        padding-left: var(--space-xs);
+
+        .talks-row-title {
+          color: var(--color-brand-400);
+        }
+
+        .talks-row-link {
+          color: var(--color-brand-400);
+          border-color: var(--color-brand-400);
+
+          svg {
+            transform: translateX(3px);
+          }
+        }
       }
     }
 
-    &-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: var(--space-xxs);
-    }
+    &-podcast {
+      @include mixins.hover {
+        &:hover {
+          .talks-row-title {
+            color: var(--color-cyan-500);
+          }
 
-    &-kind {
-      font-size: var(--font-size-xxs);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 2px var(--space-xs);
-      border-radius: var(--radius-sm);
-      color: var(--color-brand-400);
-      border: var(--stroke-sm) solid var(--color-brand-400);
-
-      &-podcast {
-        color: var(--color-cyan-500);
-        border-color: var(--color-cyan-500);
-      }
-
-      &-workshop {
-        color: var(--color-text-300);
-        border-color: var(--color-text-300);
+          .talks-row-link {
+            color: var(--color-cyan-500);
+            border-color: var(--color-cyan-500);
+          }
+        }
       }
     }
 
     &-index {
+      flex-shrink: 0;
+      width: 28px;
       font-family: "ProFontWindows", sans-serif;
       font-size: var(--font-size-xs);
-      font-weight: 700;
       color: var(--color-text-300);
       opacity: 0.6;
     }
 
+    &-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
     &-title {
       font-weight: 700;
-      font-size: var(--font-size-md);
+      font-size: var(--font-size-sm);
       line-height: 1.35;
+      transition: color 0.15s ease;
 
       @include mixins.mq("md") {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-md);
       }
     }
 
     &-event {
-      font-size: var(--font-size-sm);
+      font-size: var(--font-size-xs);
       line-height: 1.4;
+
+      @include mixins.mq("md") {
+        font-size: var(--font-size-sm);
+      }
     }
 
     &-venue {
@@ -241,32 +250,38 @@ const parseEvent = (event: string) => {
       color: var(--color-text-300);
     }
 
-    &-link {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-xxs);
-      margin-top: var(--space-xs);
-      font-size: var(--font-size-sm);
+    &-kind {
+      flex-shrink: 0;
+      display: none;
+      font-size: var(--font-size-xxs);
       font-weight: 700;
-      color: var(--color-brand-400);
-      text-transform: lowercase;
-      width: fit-content;
-      transition: color 0.15s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-300);
+
+      @include mixins.mq("sm") {
+        display: inline;
+      }
+    }
+
+    &-link {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: var(--stroke-sm) solid var(--color-beige-700);
+      color: var(--color-text-300);
+      transition:
+        color 0.15s ease,
+        border-color 0.15s ease;
 
       svg {
         width: 14px;
         height: 14px;
         transition: transform 0.15s ease;
-      }
-
-      @include mixins.hover {
-        &:hover {
-          color: var(--color-brand-500);
-
-          svg {
-            transform: translateX(3px);
-          }
-        }
       }
     }
   }
