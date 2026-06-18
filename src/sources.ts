@@ -45,6 +45,7 @@ export const sources = [
   { name: "matcap-gray", type: "texture", path: matcapGray },
   { name: "matcap-skin", type: "texture", path: matcapSkin },
   { name: "matcap-white", type: "texture", path: matcapWhite },
+  { name: "me-texture", type: "texture", path: "/img/me/meoriginal.webp" },
   { name: "numbers-bitmap", type: "texture", path: numbersBitmap },
   { name: "room-texture", type: "texture", path: roomTexture },
   { name: "room-shadow-texture", type: "texture", path: roomShadowTexture },
