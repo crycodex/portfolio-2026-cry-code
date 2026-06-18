@@ -19,11 +19,11 @@ onUnmounted(() => {
 
 <template>
   <div class="contact grid" ref="contactElement">
-    <div class="contact-photo">
-      <img class="contact-photo-image" src="/img/me/meoriginal.webp" alt="" />
-      <Social variant="background" />
-    </div>
     <div class="contact-content">
+      <div class="contact-photo">
+        <img class="contact-photo-image" src="/img/me/meoriginal.webp" alt="" />
+        <Social variant="background" />
+      </div>
       <h2 class="contact-title" v-html="t('lets-work-together')"></h2>
       <p class="contact-subtitle">{{ t("contact-subtitle") }}</p>
       <p class="contact-email">
@@ -47,31 +47,21 @@ onUnmounted(() => {
   }
 
   &-photo {
-    position: relative;
-    grid-column: 1 / 13;
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
     align-items: flex-start;
-
-    @include mixins.mq("sm") {
-      grid-column: 1 / 5;
-    }
-
-    @include mixins.mq("md") {
-      grid-column: 1 / 5;
-    }
-
-    @include mixins.mq("lg") {
-      grid-column: 2 / 5;
-    }
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
 
     &-image {
-      width: 100%;
-      max-width: 320px;
+      width: 96px;
       aspect-ratio: 3 / 4;
       object-fit: cover;
       border-radius: var(--radius-md, 12px);
+
+      @include mixins.mq("sm") {
+        width: 128px;
+      }
     }
   }
 
@@ -84,17 +74,17 @@ onUnmounted(() => {
     gap: var(--space-md);
 
     @include mixins.mq("sm") {
-      grid-column: 5 / 13;
+      grid-column: 1 / 8;
     }
 
     @include mixins.mq("md") {
       gap: var(--space-xl);
-      grid-column: 5 / 11;
+      grid-column: 1 / 6;
       padding-top: var(--space-lg);
     }
 
     @include mixins.mq("lg") {
-      grid-column: 5 / 11;
+      grid-column: 2 / 6;
     }
   }
 
