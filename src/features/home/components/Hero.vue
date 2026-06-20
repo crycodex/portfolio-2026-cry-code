@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Button from "../../../components/Button.vue";
 import AwardWreath from "../../../components/AwardWreath.vue";
+import VisitCounter from "../../../components/VisitCounter.vue";
 import { preloaderVisible } from "../../../composables/usePreloader";
 import { t } from "../../../i18n/utils/translate";
 import { awards } from "../../../content/stats";
@@ -29,6 +30,7 @@ import { social, socialLinks } from "../../../content/social";
           <div class="hero-awards" v-if="!preloaderVisible">
               <AwardWreath v-for="item in awards" :key="item.year ?? ''" :award="item" />
           </div>
+          <VisitCounter v-if="!preloaderVisible" />
         </div>
       </div>
     </div>

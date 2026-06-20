@@ -83,6 +83,17 @@ const showAttribution = import.meta.env.VITE_SHOW_ATTRIBUTION !== "false";
               >David Heckhoff</Link
             >
           </Clickable>
+          <p>and</p>
+          <Clickable renderAs="div">
+            <Link
+              href="https://porfolio.dev/"
+              class="footer-link children-unclickable"
+              external
+              data-cursor="circle-white"
+              data-hoversound="hover"
+              >Midudev</Link
+            >
+          </Clickable>
         </div>
         <div class="footer-credits-music">
           <p>
