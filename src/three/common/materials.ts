@@ -6,7 +6,6 @@ import shadowFragmentShader from "../shaders/shadow-catcher/fragment.glsl";
 import type { Material } from "three";
 
 let roomMaterial: Material | null = null;
-let frameMaterial: Material | null = null;
 let contactMaterial: Material | null = null;
 let shadowMaterial: ShaderMaterial | null = null;
 
@@ -18,16 +17,6 @@ export const getRoomMaterial = (): Material => {
   roomMaterial = new MeshBasicMaterial({ map: texture });
 
   return roomMaterial;
-};
-
-export const getFrameMaterial = (): Material => {
-  if (frameMaterial) return frameMaterial;
-  const texture = resources.items["me-texture"];
-  texture.flipY = false;
-
-  frameMaterial = new MeshBasicMaterial({ map: texture });
-
-  return frameMaterial;
 };
 
 export const getContactMaterial = (): Material => {

@@ -1,7 +1,7 @@
 import { resources } from "../../../utils/resources";
 import { scene } from "../../core/scene";
 import { Euler, Group, Mesh } from "three";
-import { getRoomMaterial, getFrameMaterial } from "../../common/materials";
+import { getRoomMaterial } from "../../common/materials";
 import { sceneWeights } from "../../../animations/scenes";
 import gsap from "gsap";
 import { shadow } from "./shadow";
@@ -20,7 +20,6 @@ let objects: {
   blackboard: Mesh;
   carpet: Mesh;
   chair: Mesh;
-  frame: Mesh;
   mouse: Mesh;
   music: Mesh;
   penguin: Mesh;
@@ -53,7 +52,6 @@ const initObjects = () => {
     blackboard: resource.scene.children.find((child: Object3D) => child.name === "blackboard"),
     carpet: resource.scene.children.find((child: Object3D) => child.name === "carpet"),
     chair: resource.scene.children.find((child: Object3D) => child.name === "chair"),
-    frame: resource.scene.children.find((child: Object3D) => child.name === "frame"),
     mouse: resource.scene.children.find((child: Object3D) => child.name === "mouse"),
     music: resource.scene.children.find((child: Object3D) => child.name === "music"),
     plant: resource.scene.children.find((child: Object3D) => child.name === "plant"),
@@ -66,7 +64,7 @@ const initObjects = () => {
 
   Object.values(objects).forEach((object) => {
     if (!object) return;
-    const mat = object.name === "frame" ? getFrameMaterial() : getRoomMaterial();
+    const mat = getRoomMaterial();
     object.material = mat;
     group.add(object);
 
