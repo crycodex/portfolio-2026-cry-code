@@ -113,7 +113,12 @@ import { social, socialLinks } from "../../../content/social";
   &-title {
     font-weight: 900;
     letter-spacing: 0.02em;
-    font-size: var(--font-size-title-lg);
+    margin-top: var(--space-xxl);
+    font-size: var(--font-size-title-md);
+
+    @include mixins.mq("sm") {
+      font-size: var(--font-size-title-lg);
+    }
 
     @include mixins.landscape {
       font-size: var(--font-size-title-lg);
@@ -149,10 +154,16 @@ import { social, socialLinks } from "../../../content/social";
 
   &-awards {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     margin-top: var(--space-sm);
+
+    @include mixins.mq("sm") {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
   }
 
 }

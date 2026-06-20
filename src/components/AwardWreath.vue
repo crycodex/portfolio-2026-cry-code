@@ -79,9 +79,14 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
   width: fit-content;
 
   &-branch {
-    width: 26px;
-    height: 70px;
+    width: 20px;
+    height: 54px;
     flex-shrink: 0;
+
+    @include mixins.mq("sm") {
+      width: 26px;
+      height: 70px;
+    }
 
     &-right {
       transform: scaleX(-1);
@@ -94,7 +99,11 @@ const pick = <T extends { es: string; en: string }>(item: T) => item[(locale.val
     align-items: center;
     text-align: center;
     gap: 2px;
-    max-width: 150px;
+    max-width: 130px;
+
+    @include mixins.mq("sm") {
+      max-width: 150px;
+    }
   }
 
   &-badge {
