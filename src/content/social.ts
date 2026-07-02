@@ -1,5 +1,5 @@
 export const social = [
-  { url: "mailto:cry.code@mail.com", name: "mail" },
+  { url: "mailto:recaldecd@gmail.com", name: "mail" },
   { url: "https://github.com/crycodex", name: "github" },
   { url: "https://www.linkedin.com/in/isnotcristhianr/", name: "linkedin" },
   { url: "https://www.instagram.com/cry.code/", name: "instagram" },
