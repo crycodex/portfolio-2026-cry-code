@@ -17,6 +17,7 @@ let activeAction: string | null = null;
 const actions = new Map<string, AnimationAction>();
 let isAwake = false;
 const wavingStrength = { value: isFeatureEnabled("introWave") ? 1 : 0 };
+export const introStandIntensity = { value: 0 };
 let hologramMixer: AnimationMixer;
 const hologramActions = new Map<string, AnimationAction>();
 
@@ -117,13 +118,15 @@ const setWeight = (key: string, weight: number) => {
 };
 
 const updateIntro = () => {
-  setWeight("desktop-idle", (1 - avatar.tIdleIntensity.value) * (1 - wavingStrength.value));
-  setWeight("left-desktop", (1 - avatar.tIdleIntensity.value) * (1 - wavingStrength.value));
+  const tIdle = Math.max(avatar.tIdleIntensity.value, introStandIntensity.value);
+  const sit = (1 - tIdle) * (1 - wavingStrength.value);
+  setWeight("desktop-idle", sit);
+  setWeight("left-desktop", sit);
   setWeight("t-idle", 0);
-  setWeight("contact-idle", avatar.tIdleIntensity.value);
+  setWeight("contact-idle", tIdle);
   setWeight("sleeping", 0);
   setWeight("wake-up", 0);
-  setWeight("wave", wavingStrength.value * (1 - avatar.tIdleIntensity.value));
+  setWeight("wave", wavingStrength.value * (1 - tIdle));
 };
 
 const wave = () => {

@@ -108,7 +108,7 @@ const setupInAnimation = (about: HTMLElement) => {
       //lab
       tl.fromTo(lab.group.position, { x: 0, y: 0, z: 6 }, { x: 0, y: 0, z: 6, duration: 1, ease: "power.1out" }, 0);
 
-      tl.fromTo(waypointsPosition, { x: 2, y: 0, z: 0 }, { x: 0, y: 0, z: 6, duration: 1, ease: "power1.out" }, 0);
+      tl.fromTo(waypointsPosition, { x: 1.7, y: 0, z: 0 }, { x: 0, y: 0, z: 6, duration: 1, ease: "power1.out" }, 0);
       tl.fromTo(
         waypointsRotation,
         { x: 0, y: -2.3 + Math.PI / 2, z: 0 },
@@ -125,7 +125,7 @@ const setupInAnimation = (about: HTMLElement) => {
       //lab
       tl.fromTo(lab.group.position, { x: 0, y: 0, z: 6 }, { x: 0, y: 0, z: 6, duration: 1, ease: "none" }, 0);
 
-      tl.fromTo(waypointsPosition, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 6, duration: 1, ease: "power1.out" }, 0);
+      tl.fromTo(waypointsPosition, { x: -0.3, y: 0, z: 0 }, { x: 0, y: 0, z: 6, duration: 1, ease: "power1.out" }, 0);
       tl.fromTo(
         waypointsRotation,
         { x: 0, y: -2.1 + Math.PI / 2, z: 0 },
