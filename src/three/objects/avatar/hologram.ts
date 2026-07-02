@@ -33,8 +33,19 @@ const setupSkeleton = () => {
   if (skeleton) return;
   const resource = resources.items["avatar-model"];
   const cloned = cloneSkeleton(resource.scene.children[0]);
-  const black: SkinnedMesh = cloned.getObjectByName("black") as SkinnedMesh;
-  skeleton = black.skeleton;
+  
+  let targetSkinnedMesh: SkinnedMesh | null = null;
+  cloned.traverse((child: Object3D) => {
+    if (!targetSkinnedMesh && child.type === "SkinnedMesh") {
+      targetSkinnedMesh = child as SkinnedMesh;
+    }
+  });
+
+  if (!targetSkinnedMesh) {
+    throw new Error("No SkinnedMesh found in the avatar model.");
+  }
+
+  skeleton = targetSkinnedMesh.skeleton;
 };
 
 const setupGeometry = () => {

@@ -9,6 +9,7 @@ import type { Material } from "three";
 import { sceneWeights } from "../../../animations/scenes";
 
 let material: Material | null = null;
+let hasFace = false;
 
 const FRAME_INDEXES = {
   "default-0": 0,
@@ -47,13 +48,14 @@ const scheduleBlinkInterval = () => {
 };
 
 const blink = () => {
-  if (!canBlink()) return;
+  if (!hasFace || !canBlink()) return;
   const tl = gsap.timeline();
   tl.to(blinkFrame, { value: 3, duration: 0.12, ease: "power2.out" });
   tl.to(blinkFrame, { value: 0, duration: 0.2, ease: "power2.out" });
 };
 
 const getMaterial = (): Material | null => {
+  hasFace = true;
   const texture = resources.items["face-texture"];
   texture.colorSpace = LinearSRGBColorSpace;
   texture.generateMipmaps = false;
@@ -104,6 +106,7 @@ const wave = () => {
 };
 
 const tick = () => {
+  if (!hasFace) return;
   const isContact = sceneWeights.contact > 0.001;
   if (isContact) {
     const name = sceneFrames.contact.startsWith("proud")

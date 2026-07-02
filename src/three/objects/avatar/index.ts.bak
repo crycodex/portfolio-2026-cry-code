@@ -1,5 +1,5 @@
 import { resources } from "../../../utils/resources";
-import { Mesh, Vector3, Euler, Group, ShaderMaterial, LinearSRGBColorSpace, MeshMatcapMaterial, SRGBColorSpace, MeshStandardMaterial, DoubleSide } from "three";
+import { Mesh, Vector3, Euler, Group, ShaderMaterial, LinearSRGBColorSpace, MeshMatcapMaterial, SRGBColorSpace, MeshStandardMaterial } from "three";
 import { scene } from "../../core/scene";
 import { animations } from "./animations";
 import { sceneWeights, sceneWeightsInOut } from "../../../animations/scenes";
@@ -26,7 +26,7 @@ const waypointsRotation = new Euler();
 const transform = new Group();
 const uniforms = { uProgress: { value: 0 }, uAmbientStrength: { value: 0 } };
 const contactPosition = new Vector3(0, -13, 0);
-const contactRotation = new Euler(0, -Math.PI / 2, 0);
+const contactRotation = new Euler(0, -Math.PI, 0);
 
 const init = () => {
   setupMesh();
@@ -82,8 +82,7 @@ const assignMatcap = (child: Mesh): boolean => {
       matcap: matcapTex,
       map: orig.map,
       transparent: true,
-      opacity: 1,
-      side: DoubleSide
+      opacity: 1
     });
     
     child.userData.isNativeMatcap = true;
@@ -118,14 +117,9 @@ const setupMesh = () => {
 
   mesh.traverse((child) => {
     if (child instanceof Mesh) {
-      // Si el GLB trae su propia textura, conservar el material original
-      // para que assignMatcap() pueda detectarla (fix: antes se pisaba aqui).
-      const nativeMap = (child.material as MeshStandardMaterial)?.map ?? null;
-      if (!nativeMap) {
-        const mat = getMaterial(child.name);
-        if (!mat) return;
-        child.material = mat;
-      }
+      const mat = getMaterial(child.name);
+      if (!mat) return;
+      child.material = mat;
       child.frustumCulled = false;
       child.renderOrder = child.name === "face" ? 25 : 24;
 
