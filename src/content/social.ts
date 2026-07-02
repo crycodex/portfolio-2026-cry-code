@@ -6,7 +6,6 @@ export const social = [
 ] as const satisfies { url: string; name: "mail" | "github" | "instagram" | "linkedin" | "x" }[];
 
 export const socialLinks = {
-  cv: "https://cry-code.vercel.app/",
   github: "https://github.com/crycodex",
   youtube: "https://www.youtube.com/@cry_code",
 } as const;

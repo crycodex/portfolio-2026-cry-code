@@ -1,11 +1,23 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import Button from "../../../components/Button.vue";
 import AwardWreath from "../../../components/AwardWreath.vue";
 import VisitCounter from "../../../components/VisitCounter.vue";
 import { preloaderVisible } from "../../../composables/usePreloader";
 import { t } from "../../../i18n/utils/translate";
+import { locale } from "../../../i18n/store";
 import { awards } from "../../../content/stats";
 import { social, socialLinks } from "../../../content/social";
+
+import type { Locale } from "../../../i18n/types";
+
+const cvFiles: Record<Locale, string> = {
+  en: "CV_RECALDE CRISTHIAN (EN).pdf",
+  es: "CV_RECALDE CRISTHIAN (ES).pdf",
+};
+
+const cvFileName = computed(() => cvFiles[(locale.value ?? "es") as Locale]);
+const cvHref = computed(() => `/cv/${encodeURIComponent(cvFileName.value)}`);
 </script>
 
 <template>
@@ -17,7 +29,7 @@ import { social, socialLinks } from "../../../content/social";
           <h1 class="hero-title" v-html="t('name-full')"></h1>
           <p class="hero-tagline" v-if="!preloaderVisible">{{ t("about-tagline") }}</p>
           <div class="hero-actions" v-if="!preloaderVisible">
-            <Button renderAs="a" variant="accent" :href="socialLinks.cv" external>{{ "CV" }}</Button>
+            <Button renderAs="a" variant="accent" :href="cvHref" :download="cvFileName">{{ "CV" }}</Button>
             <Button
               renderAs="a"
               variant="border"
