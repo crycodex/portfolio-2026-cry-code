@@ -83,7 +83,7 @@ const setupInAnimation = (about: HTMLElement) => {
     tl.fromTo(room.chairScrollRotation, { x: 0, y: 0, z: 0 }, { y: -1.1, duration: 0.6, ease: "power4.out" }, 0);
     tl.fromTo(room.chairScrollRotation, { x: 0, y: 0, z: 0 }, { x: -0.9, z: -1.3, duration: 0.6 }, 0);
 
-    tl.fromTo(avatar.tIdleIntensity, { value: 0 }, { value: 1, duration: 0.75, ease: "power1.out" }, 0);
+    tl.fromTo(avatar.tIdleIntensity, { value: 0 }, { value: 1, duration: 0.15, ease: "power2.out" }, 0);
 
     tl.fromTo(sceneWeightsInOut.about, { in: 0 }, { in: 1, ease: "none", duration: 1 }, 0);
     tl.fromTo(sceneWeightsInOut["about-1"], { in: 0 }, { in: 1, ease: "none", duration: 1 }, 0);
@@ -112,8 +112,7 @@ const setupInAnimation = (about: HTMLElement) => {
       tl.fromTo(
         waypointsRotation,
         { x: 0, y: -2.3 + Math.PI / 2, z: 0 },
-        //{ x: 0, y: -Math.PI, z: 0, duration: 1, ease: "power1.out" },
-        { x: 0, y: -Math.PI, z: 0, duration: 1, ease: "power1.out" },
+        { x: 0, y: -Math.PI / 2, z: 0, duration: 0.15, ease: "power2.out" },
         0,
       );
 
@@ -130,7 +129,7 @@ const setupInAnimation = (about: HTMLElement) => {
       tl.fromTo(
         waypointsRotation,
         { x: 0, y: -2.1 + Math.PI / 2, z: 0 },
-        { x: 0, y: -Math.PI, z: 0, duration: 1, ease: "power1.out" },
+        { x: 0, y: -Math.PI / 2, z: 0, duration: 0.15, ease: "power2.out" },
         0,
       );
     }
@@ -171,7 +170,7 @@ const setupScenesAnimation = (about: HTMLElement) => {
     const duration = (1 - delay * 2) * multiplier;
 
     const { waypointsRotation } = avatar;
-    tl.to(waypointsRotation, { x: 0, y: -Math.PI, z: 0, duration: duration, ease: "power1.inOut" }, delay);
+    tl.to(waypointsRotation, { x: 0, y: -Math.PI / 2, z: 0, duration: duration, ease: "power1.inOut" }, delay);
 
     tl.to(sceneWeightsInOut["about-2"], { in: 1, duration: duration, ease: "power1.inOut" }, delay);
     tl.to(sceneWeightsInOut["about-1"], { out: 1, duration: duration, ease: "power1.inOut" }, delay);

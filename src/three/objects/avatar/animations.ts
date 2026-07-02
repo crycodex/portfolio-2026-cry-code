@@ -70,7 +70,7 @@ const setupActions = () => {
   setupAction("left-desktop", "left-desktop", LoopOnce, true);
   setupAction("sleeping", "sleeping", LoopPingPong, false, true);
   setupAction("wake-up", "wake-up", LoopOnce, true);
-  setupAction("contact-idle", "contact-idle", LoopPingPong);
+  setupAction("contact-idle", "contact-idle", LoopPingPong, false, true);
   setupAction("wave", "wave", LoopOnce, true);
 };
 
@@ -78,6 +78,7 @@ const setupHologramActions = () => {
   setupHologramAction("desktop-idle", "idle", LoopPingPong, false, true);
   setupHologramAction("t-idle", "t-idle", LoopPingPong, false, true);
   setupHologramAction("left-desktop", "left-desktop", LoopOnce, true);
+  setupHologramAction("contact-idle", "contact-idle", LoopPingPong, false, true);
   setupHologramAction("wave", "wave", LoopOnce, true);
 };
 
@@ -118,9 +119,9 @@ const setWeight = (key: string, weight: number) => {
 const updateIntro = () => {
   setWeight("desktop-idle", (1 - avatar.tIdleIntensity.value) * (1 - wavingStrength.value));
   setWeight("left-desktop", (1 - avatar.tIdleIntensity.value) * (1 - wavingStrength.value));
-  setWeight("t-idle", avatar.tIdleIntensity.value);
+  setWeight("t-idle", 0);
+  setWeight("contact-idle", avatar.tIdleIntensity.value);
   setWeight("sleeping", 0);
-  setWeight("contact-idle", 0);
   setWeight("wake-up", 0);
   setWeight("wave", wavingStrength.value * (1 - avatar.tIdleIntensity.value));
 };
