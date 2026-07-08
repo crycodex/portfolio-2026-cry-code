@@ -1,4 +1,4 @@
-import { MeshBasicMaterial, ShaderMaterial } from "three";
+import { Color, MeshBasicMaterial, ShaderMaterial } from "three";
 import { resources } from "../../utils/resources";
 import shadowVertexShader from "../shaders/shadow-catcher/vertex.glsl";
 import shadowFragmentShader from "../shaders/shadow-catcher/fragment.glsl";
@@ -14,7 +14,7 @@ export const getRoomMaterial = (): Material => {
   const texture = resources.items["room-texture"];
   texture.flipY = false;
 
-  roomMaterial = new MeshBasicMaterial({ map: texture });
+  roomMaterial = new MeshBasicMaterial({ map: texture, color: new Color(0.75, 0.88, 1.15) });
 
   return roomMaterial;
 };

@@ -9,7 +9,7 @@ const play = () => {
 
   tl.from(avatar.waypointsPosition, { x: 0, z: 6, duration: 3, ease: "power2.inOut" }, 0);
   tl.from(avatar.waypointsRotation, { y: -Math.PI / 2, duration: 3, ease: "power2.inOut" }, 0);
-  tl.from(avatarAnimations.introStandIntensity, { value: 1, duration: 2, ease: "power2.inOut" }, 3);
+  tl.from(avatarAnimations.introStandIntensity, { value: 1, duration: 1.8, ease: "power3.out" }, 3);
 
   if (!isFeatureEnabled("introWave")) return;
 

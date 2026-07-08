@@ -48,7 +48,7 @@ const startInterval = () => {
     const tl = gsap.timeline({
       duration: clip.duration + 0.2,
       onComplete: () => {
-        avatarAnimations.play("desktop-idle", 0.3);
+        avatarAnimations.play("desktop-idle", 0.45);
         isActive.value = false;
       },
     });
@@ -56,7 +56,7 @@ const startInterval = () => {
     isActive.value = true;
 
     tl.add(() => {
-      avatarAnimations.play("left-desktop", 0.3);
+      avatarAnimations.play("left-desktop", 0.45);
     }, 0.2);
 
     if (currentId) {
