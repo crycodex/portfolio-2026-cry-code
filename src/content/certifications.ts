@@ -11,6 +11,7 @@ export interface Certification {
   icon?: string;
   /** Link to the credential. */
   url?: string;
+  featured?: boolean;
   description: Localized;
 }
 
@@ -21,6 +22,7 @@ export const certifications: Certification[] = [
     issuer: "Microsoft",
     icon: "lucide:cloud",
     url: "https://learn.microsoft.com/api/credentials/share/es-es/CristhianRecalde-4665/10D25DF28F252BB7?sharingId=A2098A03866B3733",
+    featured: true,
     description: {
       es: "Fundamentos de Azure e inteligencia artificial: servicios en la nube, arquitectura de soluciones, seguridad, gestión de recursos y conceptos de IA en Microsoft.",
       en: "Azure and AI fundamentals: cloud services, solution architecture, security, resource management and AI concepts on Microsoft.",
@@ -32,6 +34,7 @@ export const certifications: Certification[] = [
     issuer: "Google",
     icon: "lucide:code-xml",
     url: "https://drive.google.com/file/d/1Pg0lJnZtYOdj2Rv4q5SZsnA9ieFsBtm2/view?usp=sharing",
+    featured: true,
     description: {
       es: "Desarrollo web con HTML, CSS, JavaScript y buenas prácticas: estructuras, estilos, interactividad y fundamentos de SEO.",
       en: "Web development with HTML, CSS, JavaScript and best practices: structure, styling, interactivity and SEO fundamentals.",
@@ -65,6 +68,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     icon: "lucide:braces",
     url: "https://drive.google.com/file/d/1SSqaYjPIGwO9LCkHOwUOZB4r7Yh6OIYE/view?usp=sharing",
+    featured: true,
     description: {
       es: "Desarrollo con Vue 3: Composition API, componentes reactivos, gestión de estado y mejores prácticas del ecosistema Vue.",
       en: "Development with Vue 3: Composition API, reactive components, state management and Vue ecosystem best practices.",
@@ -118,6 +122,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     icon: "lucide:puzzle",
     url: "https://drive.google.com/file/d/1xj1ym_F29XURBNyC-dzIFR2cWtL7e1hL/view?usp=sharing",
+    featured: true,
     description: {
       es: "Desarrollo de extensiones para Google Chrome: Manifest V3, APIs de Chrome, almacenamiento, permisos y publicación en la Chrome Web Store.",
       en: "Google Chrome extension development: Manifest V3, Chrome APIs, storage, permissions and publishing to the Chrome Web Store.",
@@ -129,6 +134,7 @@ export const certifications: Certification[] = [
     issuer: "Cisco",
     icon: "lucide:shield-check",
     url: "https://drive.google.com/file/d/1JIQnpAAYXDI7NSi4Kw5Za_T433vXCSGy/view?usp=sharing",
+    featured: true,
     description: {
       es: "Seguridad cibernética y redes con enfoque Cisco: amenazas, defensa perimetral, firewalls y fundamentos de infraestructura segura.",
       en: "Cybersecurity and networking with a Cisco focus: threats, perimeter defense, firewalls and secure infrastructure fundamentals.",
@@ -195,6 +201,7 @@ export const certifications: Certification[] = [
     issuer: "UNESCO",
     icon: "lucide:sparkles",
     url: "https://drive.google.com/file/d/1jyAMjhspcFqi5fYIKF2L9ude47x8SvDc/view?usp=sharing",
+    featured: true,
     description: {
       es: "Inteligencia artificial según UNESCO: IA generativa, IA aplicada e IA responsable. Ética, sesgos y uso sostenible de la tecnología.",
       en: "Artificial intelligence per UNESCO: generative AI, applied AI and responsible AI. Ethics, bias and sustainable use of technology.",
@@ -213,6 +220,6 @@ export const certifications: Certification[] = [
   },
 ];
 
-export function getFeaturedCertifications(limit = 5): Certification[] {
-  return certifications.slice(0, limit);
+export function getFeaturedCertifications(limit = 6): Certification[] {
+  return certifications.filter((cert) => cert.featured).slice(0, limit);
 }

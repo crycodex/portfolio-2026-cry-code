@@ -283,7 +283,6 @@ export const projects: ProjectMeta[] = [
     slug: "backend-app",
     category: "backend",
     technologies: ["Firebase", "Node.js", "API", "Authentication"],
-    featured: true,
     title: { es: "Backend de App Móvil", en: "Mobile App Backend" },
     description: {
       es: "Aplicación de intercambio. Implementación de servicios de autenticación y almacenamiento. Despliegue en Firebase",
@@ -481,6 +480,7 @@ export const projects: ProjectMeta[] = [
     slug: "agroindustrias-equatorial",
     category: "web",
     technologies: ["React", "TypeScript", "Vercel", "API"],
+    featured: true,
     github: "https://github.com/crycodex/agreqtlr",
     demo: "https://www.agroindustriasequatorial.com/",
     title: { es: "Agroindustrias Equatorial - Landing Page", en: "Agroindustrias Equatorial - Landing Page" },
@@ -715,7 +715,7 @@ export function getProjects(locale: Locale): ProjectView[] {
   return projects.map((p) => toView(p, locale));
 }
 
-export function getFeaturedProjects(locale: Locale, limit = 5): ProjectView[] {
+export function getFeaturedProjects(locale: Locale, limit = 6): ProjectView[] {
   return projects
     .filter((p) => p.featured)
     .slice(0, limit)
