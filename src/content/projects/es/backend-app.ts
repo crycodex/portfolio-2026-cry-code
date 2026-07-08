@@ -1,5 +1,3 @@
-import image0 from "../../../assets/images/projects/streakon/streakon-0.webp";
-
 import type { ProjectContent } from "../../types";
 
 export default {
@@ -14,7 +12,7 @@ export default {
       type: "media",
       props: {
         type: "image",
-        src: image0,
+        src: "/img/projects/19.webp",
         alt: "Backend App Móvil",
         caption: "Backend App Móvil",
       },

@@ -568,6 +568,7 @@ export const projects: ProjectMeta[] = [
     technologies: ["React", "TypeScript", "Vercel", "Tailwind CSS", "React Router", "React Query"],
     featured: true,
     github: "https://github.com/crycodex/ionos-hub-connect",
+    demo: "https://www.ionoshub.net",
     title: { es: "IonosHub - Landing Page", en: "IonosHub - Landing Page" },
     description: {
       es: "Landing page de IonosHub centrada en la simplicidad y la eficiencia.",

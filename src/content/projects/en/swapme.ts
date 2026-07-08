@@ -1,5 +1,3 @@
-import image0 from "../../../assets/images/projects/sharkie/sharkie-0.webp";
-
 import type { ProjectContent } from "../../types";
 
 export default {
@@ -14,7 +12,7 @@ export default {
       type: "media",
       props: {
         type: "image",
-        src: image0,
+        src: "/img/projects/28.webp",
         alt: "Swapme 2.0",
         caption: "Swapme 2.0",
       },
