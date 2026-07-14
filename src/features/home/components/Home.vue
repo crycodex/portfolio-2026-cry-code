@@ -7,6 +7,7 @@ import Projects from "./Projects.vue";
 import Contact from "./Contact.vue";
 import Trajectory from "./Trajectory.vue";
 import Certifications from "./Certifications.vue";
+import Courses from "./Courses.vue";
 import Talks from "./Talks.vue";
 import Footer from "../../../components/Footer.vue";
 import { ref, onMounted, onUnmounted, watchEffect, computed, watch } from "vue";
@@ -163,6 +164,7 @@ watch(
       <Trajectory v-if="projectsLoaded" />
       <Projects id="projects" @loaded="handleProjectsLoaded" />
       <Certifications v-if="projectsLoaded" />
+      <Courses v-if="projectsLoaded" />
       <Talks v-if="projectsLoaded" />
       <div ref="contactRef" class="home-contact">
         <Contact id="contact" v-if="projectsLoaded" />
