@@ -1,18 +1,27 @@
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { isTransitioning } from "./useProjectTransition";
+import { getProjectMetaBySlug } from "../content/projects/data";
 
 // -----------------------------------------------------------------------------
 // GLOBAL REACTIVE PATH
 // -----------------------------------------------------------------------------
 
-export const path = ref(typeof window !== "undefined" ? window.location.pathname : "/");
+/** Strip trailing slash so /projects/ and /projects resolve the same. */
+export const normalizePath = (pathname: string) => {
+  if (!pathname || pathname === "/") return "/";
+  return pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+};
+
+export const path = ref(
+  typeof window !== "undefined" ? normalizePath(window.location.pathname) : "/",
+);
 
 // -----------------------------------------------------------------------------
 // COMPUTED HELPERS
 // -----------------------------------------------------------------------------
 
-export const isProjectRoute = (path: string) => {
-  return path.match(/^\/project\/([^/]+)$/);
+export const isProjectRoute = (pathname: string) => {
+  return normalizePath(pathname).match(/^\/project\/([^/]+)$/);
 };
 
 export const projectId = computed(() => {
@@ -44,6 +53,21 @@ export const recentProjectId = computed(() => {
   }
   return recentProject.value;
 });
+
+const KNOWN_STATIC_ROUTES = new Set(["/", "/projects", "/certifications"]);
+
+/** Returns true when the SPA can render this path. */
+export const isKnownRoute = (pathname: string) => {
+  const normalized = normalizePath(pathname);
+  if (KNOWN_STATIC_ROUTES.has(normalized)) return true;
+
+  const projectMatch = isProjectRoute(normalized);
+  if (projectMatch?.[1]) {
+    return Boolean(getProjectMetaBySlug(projectMatch[1]));
+  }
+
+  return false;
+};
 
 // -----------------------------------------------------------------------------
 // HISTORY PATCH (safe & minimal)
@@ -77,23 +101,42 @@ function patchHistory() {
 // -----------------------------------------------------------------------------
 
 export function useRouteObserver() {
-  const update = () => {
-    const newPath = window.location.pathname;
-    if (newPath !== path.value) {
-      path.value = newPath;
+  const syncPath = () => {
+    if (typeof window === "undefined") return;
+
+    const raw = window.location.pathname;
+    const normalized = normalizePath(raw);
+
+    // Keep the address bar clean (no trailing slash) for shareable URLs on Vercel.
+    if (raw !== normalized) {
+      window.history.replaceState(window.history.state, "", normalized);
+    }
+
+    // Unknown / broken deep links → home (SPA still served by vercel.json rewrites).
+    if (!isKnownRoute(normalized)) {
+      if (normalized !== "/") {
+        window.history.replaceState(null, "", "/");
+      }
+      path.value = "/";
+      return;
+    }
+
+    if (normalized !== path.value) {
+      path.value = normalized;
     }
   };
+
   onMounted(() => {
     patchHistory();
-    update();
+    syncPath();
 
-    window.addEventListener("popstate", update);
-    window.addEventListener("route-change", update);
+    window.addEventListener("popstate", syncPath);
+    window.addEventListener("route-change", syncPath);
   });
 
   onUnmounted(() => {
-    window.removeEventListener("popstate", update);
-    window.removeEventListener("route-change", update);
+    window.removeEventListener("popstate", syncPath);
+    window.removeEventListener("route-change", syncPath);
   });
 
   return {
